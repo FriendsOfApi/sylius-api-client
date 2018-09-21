@@ -7,16 +7,16 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate\Api;
+namespace FAPI\Sylius\Api;
 
-use FAPI\Boilerplate\Exception;
-use FAPI\Boilerplate\Exception\Domain as DomainExceptions;
-use FAPI\Boilerplate\Exception\InvalidArgumentException;
-use FAPI\Boilerplate\Model\Tweet\TweetCreated;
-use FAPI\Boilerplate\Model\Tweet\TweetDeleted;
-use FAPI\Boilerplate\Model\Tweet\Tweets;
-use FAPI\Boilerplate\Model\Tweet\Tweet as TweetModel;
-use FAPI\Boilerplate\Model\Tweet\TweetUpdated;
+use FAPI\Sylius\Exception;
+use FAPI\Sylius\Exception\Domain as DomainExceptions;
+use FAPI\Sylius\Exception\InvalidArgumentException;
+use FAPI\Sylius\Model\Tweet\TweetCreated;
+use FAPI\Sylius\Model\Tweet\TweetDeleted;
+use FAPI\Sylius\Model\Tweet\Tweets;
+use FAPI\Sylius\Model\Tweet\Tweet as TweetModel;
+use FAPI\Sylius\Model\Tweet\TweetUpdated;
 use Psr\Http\Message\ResponseInterface;
 
 /**

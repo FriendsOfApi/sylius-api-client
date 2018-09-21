@@ -5,9 +5,9 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate\Exception;
+namespace FAPI\Sylius\Exception;
 
-use FAPI\Boilerplate\Exception;
+use FAPI\Sylius\Exception;
 
 /**
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>

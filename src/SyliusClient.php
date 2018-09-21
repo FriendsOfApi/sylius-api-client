@@ -7,18 +7,18 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate;
+namespace FAPI\Sylius;
 
-use FAPI\Boilerplate\Api\Stat;
-use FAPI\Boilerplate\Api\Tweet;
-use FAPI\Boilerplate\Hydrator\ModelHydrator;
-use FAPI\Boilerplate\Hydrator\Hydrator;
+use FAPI\Sylius\Api\Stat;
+use FAPI\Sylius\Api\Tweet;
+use FAPI\Sylius\Hydrator\ModelHydrator;
+use FAPI\Sylius\Hydrator\Hydrator;
 use Http\Client\HttpClient;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class ApiClient
+final class SyliusClient
 {
     /**
      * @var HttpClient
@@ -58,7 +58,7 @@ final class ApiClient
      * @param Hydrator|null          $hydrator
      * @param RequestBuilder|null    $requestBuilder
      *
-     * @return ApiClient
+     * @return SyliusClient
      */
     public static function configure(
         HttpClientConfigurator $httpClientConfigurator,
@@ -73,9 +73,9 @@ final class ApiClient
     /**
      * @param string $apiKey
      *
-     * @return ApiClient
+     * @return SyliusClient
      */
-    public static function create(string $apiKey): ApiClient
+    public static function create(string $apiKey): SyliusClient
     {
         $httpClientConfigurator = (new HttpClientConfigurator())->setApiKey($apiKey);
 
@@ -83,18 +83,10 @@ final class ApiClient
     }
 
     /**
-     * @return Api\Tweet
+     * @return Api\Customer
      */
-    public function tweets(): Tweet
+    public function customers(): Api\Customer
     {
-        return new Api\Tweet($this->httpClient, $this->hydrator, $this->requestBuilder);
-    }
-
-    /**
-     * @return Api\Stat
-     */
-    public function stats(): Stat
-    {
-        return new Api\Stat($this->httpClient, $this->hydrator, $this->requestBuilder);
+        return new Api\Customer($this->httpClient, $this->hydrator, $this->requestBuilder);
     }
 }

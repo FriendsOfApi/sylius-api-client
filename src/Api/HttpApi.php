@@ -7,14 +7,14 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate\Api;
+namespace FAPI\Sylius\Api;
 
-use FAPI\Boilerplate\Exception\Domain as DomainExceptions;
-use FAPI\Boilerplate\Exception\DomainException;
-use FAPI\Boilerplate\Hydrator\NoopHydrator;
+use FAPI\Sylius\Exception\Domain as DomainExceptions;
+use FAPI\Sylius\Exception\DomainException;
+use FAPI\Sylius\Hydrator\NoopHydrator;
 use Http\Client\HttpClient;
-use FAPI\Boilerplate\Hydrator\Hydrator;
-use FAPI\Boilerplate\RequestBuilder;
+use FAPI\Sylius\Hydrator\Hydrator;
+use FAPI\Sylius\RequestBuilder;
 use Psr\Http\Message\ResponseInterface;
 
 /**

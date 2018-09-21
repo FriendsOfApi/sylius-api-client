@@ -7,7 +7,7 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate;
+namespace FAPI\Sylius;
 
 use Http\Client\HttpClient;
 use Http\Client\Common\PluginClient;
@@ -29,7 +29,7 @@ final class HttpClientConfigurator
     /**
      * @var string
      */
-    private $endpoint = 'https://fake-twitter.com';
+    private $endpoint = 'https://sylius.com/api/v1';
 
     /**
      * @var string
@@ -75,7 +75,7 @@ final class HttpClientConfigurator
 
         $plugins[] = new Plugin\AddHostPlugin($this->uriFactory->createUri($this->endpoint));
         $plugins[] = new Plugin\HeaderDefaultsPlugin([
-            'User-Agent' => 'FriendsOfApi/boilerplate (https://github.com/FriendsOfApi/boilerplate)',
+            'User-Agent' => 'FriendsOfApi/sylius (https://github.com/FriendsOfApi/sylius)',
         ]);
 
         if (null !== $this->apiKey) {

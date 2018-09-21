@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "FAPI\\Boilerplate\\": "src/"
+            "FAPI\\Sylius\\": "src/"
         }
     },
     "autoload-dev": {

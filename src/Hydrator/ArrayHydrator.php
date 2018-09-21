@@ -7,9 +7,9 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate\Hydrator;
+namespace FAPI\Sylius\Hydrator;
 
-use FAPI\Boilerplate\Exception\HydrationException;
+use FAPI\Sylius\Exception\HydrationException;
 use Psr\Http\Message\ResponseInterface;
 
 /**

@@ -7,12 +7,12 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate\Api;
+namespace FAPI\Sylius\Api;
 
-use FAPI\Boilerplate\Exception;
-use FAPI\Boilerplate\Exception\Domain as DomainExceptions;
-use FAPI\Boilerplate\Exception\InvalidArgumentException;
-use FAPI\Boilerplate\Model\Customer\CustomerCreated;
+use FAPI\Sylius\Exception;
+use FAPI\Sylius\Exception\Domain as DomainExceptions;
+use FAPI\Sylius\Exception\InvalidArgumentException;
+use FAPI\Sylius\Model\Customer\CustomerCreated;
 use Psr\Http\Message\ResponseInterface;
 
 /**

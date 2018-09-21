@@ -5,7 +5,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate;
+namespace FAPI\Sylius;
 
 /**
  * All our exception implements this interface.

@@ -7,9 +7,9 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate\Model\Customer;
+namespace FAPI\Sylius\Model\Customer;
 
-use FAPI\Boilerplate\Model\CreatableFromArray;
+use FAPI\Sylius\Model\CreatableFromArray;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>

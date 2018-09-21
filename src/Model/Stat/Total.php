@@ -7,9 +7,9 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate\Model\Stat;
+namespace FAPI\Sylius\Model\Stat;
 
-use FAPI\Boilerplate\Model\CreatableFromArray;
+use FAPI\Sylius\Model\CreatableFromArray;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

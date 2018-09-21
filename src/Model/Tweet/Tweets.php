@@ -7,10 +7,10 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace FAPI\Boilerplate\Model\Tweet;
+namespace FAPI\Sylius\Model\Tweet;
 
-use FAPI\Boilerplate\Exception\InvalidArgumentException;
-use FAPI\Boilerplate\Model\CreatableFromArray;
+use FAPI\Sylius\Exception\InvalidArgumentException;
+use FAPI\Sylius\Model\CreatableFromArray;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
