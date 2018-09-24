@@ -9,10 +9,8 @@ declare(strict_types=1);
 
 namespace FAPI\Sylius;
 
-use FAPI\Sylius\Api\Stat;
-use FAPI\Sylius\Api\Tweet;
-use FAPI\Sylius\Hydrator\ModelHydrator;
 use FAPI\Sylius\Hydrator\Hydrator;
+use FAPI\Sylius\Hydrator\ModelHydrator;
 use Http\Client\HttpClient;
 
 /**
@@ -40,8 +38,8 @@ final class SyliusClient
      * Use the configure method to pass a configuration to the Client and create an HTTP Client.
      *
      * @param HttpClient          $httpClient
-     * @param Hydrator|null       $hydrator
-     * @param RequestBuilder|null $requestBuilder
+     * @param null|Hydrator       $hydrator
+     * @param null|RequestBuilder $requestBuilder
      */
     public function __construct(
         HttpClient $httpClient,
@@ -55,8 +53,8 @@ final class SyliusClient
 
     /**
      * @param HttpClientConfigurator $httpClientConfigurator
-     * @param Hydrator|null          $hydrator
-     * @param RequestBuilder|null    $requestBuilder
+     * @param null|Hydrator          $hydrator
+     * @param null|RequestBuilder    $requestBuilder
      *
      * @return SyliusClient
      */
@@ -75,7 +73,7 @@ final class SyliusClient
      *
      * @return SyliusClient
      */
-    public static function create(string $apiKey, string $endPoint): SyliusClient
+    public static function create(string $apiKey, string $endPoint): self
     {
         $httpClientConfigurator = (new HttpClientConfigurator())
             ->setApiKey($apiKey)
@@ -90,5 +88,13 @@ final class SyliusClient
     public function customers(): Api\Customer
     {
         return new Api\Customer($this->httpClient, $this->hydrator, $this->requestBuilder);
+    }
+
+    /**
+     * @return Api\Cart
+     */
+    public function carts(): Api\Cart
+    {
+        return new Api\Cart($this->httpClient, $this->hydrator, $this->requestBuilder);
     }
 }

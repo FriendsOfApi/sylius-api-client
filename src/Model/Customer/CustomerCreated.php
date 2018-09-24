@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace FAPI\Sylius\Model\Customer;
 
 use FAPI\Sylius\Model\CreatableFromArray;
-use Nelmio\Alice\User;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
