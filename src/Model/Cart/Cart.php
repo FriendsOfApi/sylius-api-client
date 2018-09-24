@@ -10,12 +10,12 @@ declare(strict_types=1);
 namespace FAPI\Sylius\Model\Cart;
 
 use FAPI\Sylius\Model\CreatableFromArray;
-use FAPI\Sylius\Model\Customer\CustomerCreated;
+use FAPI\Sylius\Model\Customer\Customer;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
  */
-final class CartCreated implements CreatableFromArray
+final class Cart implements CreatableFromArray
 {
     /**
      * @var int
@@ -23,7 +23,7 @@ final class CartCreated implements CreatableFromArray
     private $id;
 
     /**
-     * @var CustomerCreated
+     * @var Customer
      */
     private $customer;
 
@@ -46,14 +46,14 @@ final class CartCreated implements CreatableFromArray
      * CartCreated constructor.
      *
      * @param int             $id
-     * @param CustomerCreated $customer
+     * @param Customer $customer
      * @param string          $currencyCode
      * @param string          $localeCode
      * @param string          $checkoutState
      */
     private function __construct(
         int $id,
-        CustomerCreated $customer,
+        Customer $customer,
         string $currencyCode,
         string $localeCode,
         string $checkoutState
@@ -68,7 +68,7 @@ final class CartCreated implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return CustomerCreated
+     * @return Customer
      */
     public static function createFromArray(array $data): self
     {
@@ -77,9 +77,9 @@ final class CartCreated implements CreatableFromArray
             $id = $data['id'];
         }
 
-        $customer = CustomerCreated::createFromArray([]);
+        $customer = Customer::createFromArray([]);
         if (isset($data['customer'])) {
-            $customer = CustomerCreated::createFromArray($data['customer']);
+            $customer = Customer::createFromArray($data['customer']);
         }
 
         $currencyCode = '';
@@ -109,9 +109,9 @@ final class CartCreated implements CreatableFromArray
     }
 
     /**
-     * @return CustomerCreated
+     * @return Customer
      */
-    public function getCustomer(): CustomerCreated
+    public function getCustomer(): Customer
     {
         return $this->customer;
     }

@@ -14,7 +14,7 @@ use FAPI\Sylius\Model\CreatableFromArray;
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
  */
-final class CustomerCreated implements CreatableFromArray
+final class Customer implements CreatableFromArray
 {
     /**
      * @var int
@@ -22,7 +22,7 @@ final class CustomerCreated implements CreatableFromArray
     private $id;
 
     /**
-     * @var UserCreated
+     * @var User
      */
     private $user;
 
@@ -52,10 +52,10 @@ final class CustomerCreated implements CreatableFromArray
     private $gender;
 
     /**
-     * CustomerCreated constructor.
+     * Customer constructor.
      *
      * @param int         $id
-     * @param UserCreated $user
+     * @param User $user
      * @param string      $email
      * @param string      $emailCanonical
      * @param string      $firstName
@@ -64,7 +64,7 @@ final class CustomerCreated implements CreatableFromArray
      */
     private function __construct(
         int $id,
-        UserCreated $user,
+        User $user,
         string $email,
         string $emailCanonical,
         string $firstName,
@@ -85,7 +85,7 @@ final class CustomerCreated implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return CustomerCreated
+     * @return Customer
      */
     public static function createFromArray(array $data): self
     {
@@ -94,9 +94,9 @@ final class CustomerCreated implements CreatableFromArray
             $id = $data['id'];
         }
 
-        $user = UserCreated::createFromArray([]);
+        $user = User::createFromArray([]);
         if (isset($data['user'])) {
-            $user = UserCreated::createFromArray($data['user']);
+            $user = User::createFromArray($data['user']);
         }
 
         $email = '';
@@ -136,9 +136,9 @@ final class CustomerCreated implements CreatableFromArray
     }
 
     /**
-     * @return UserCreated
+     * @return User
      */
-    public function getUser(): UserCreated
+    public function getUser(): User
     {
         return $this->user;
     }

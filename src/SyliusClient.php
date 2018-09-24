@@ -83,18 +83,18 @@ final class SyliusClient
     }
 
     /**
-     * @return Api\Customer
+     * @return Api\Customers
      */
-    public function customers(): Api\Customer
+    public function customers(): Api\Customers
     {
-        return new Api\Customer($this->httpClient, $this->hydrator, $this->requestBuilder);
+        return new Api\Customers($this->httpClient, $this->hydrator, $this->requestBuilder);
     }
 
     /**
-     * @return Api\Cart
+     * @return Api\Carts
      */
-    public function carts(): Api\Cart
+    public function carts(): Api\Carts
     {
-        return new Api\Cart($this->httpClient, $this->hydrator, $this->requestBuilder);
+        return new Api\Carts($this->httpClient, $this->hydrator, $this->requestBuilder);
     }
 }

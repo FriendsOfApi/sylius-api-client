@@ -12,13 +12,14 @@ namespace FAPI\Sylius\Api;
 use FAPI\Sylius\Exception;
 use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
+use FAPI\Sylius\Model\Cart\Cart;
 use FAPI\Sylius\Model\Cart\CartCreated;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
  */
-final class Cart extends HttpApi
+final class Carts extends HttpApi
 {
     /**
      * @param string $message
@@ -27,12 +28,12 @@ final class Cart extends HttpApi
      *
      * @throws Exception
      *
-     * @return CartCreated|ResponseInterface
+     * @return Cart|ResponseInterface
      */
     public function create(string $customer, string $channel, string $localeCode)
     {
         if (empty($customer)) {
-            throw new InvalidArgumentException('Customer field cannot be empty');
+            throw new InvalidArgumentException('Customers field cannot be empty');
         }
 
         if (empty($channel)) {
@@ -69,6 +70,6 @@ final class Cart extends HttpApi
             }
         }
 
-        return $this->hydrator->hydrate($response, CartCreated::class);
+        return $this->hydrator->hydrate($response, Cart::class);
     }
 }

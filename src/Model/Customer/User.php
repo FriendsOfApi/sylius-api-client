@@ -14,7 +14,7 @@ use FAPI\Sylius\Model\CreatableFromArray;
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
  */
-final class UserCreated implements CreatableFromArray
+final class User implements CreatableFromArray
 {
     /**
      * @var int
@@ -37,7 +37,7 @@ final class UserCreated implements CreatableFromArray
     private $enabled;
 
     /**
-     * UserCreated constructor.
+     * User constructor.
      *
      * @param int      $id
      * @param string   $username
@@ -55,7 +55,7 @@ final class UserCreated implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return UserCreated
+     * @return User
      */
     public static function createFromArray(array $data): self
     {
