@@ -75,9 +75,11 @@ final class SyliusClient
      *
      * @return SyliusClient
      */
-    public static function create(string $apiKey): SyliusClient
+    public static function create(string $apiKey, string $endPoint): SyliusClient
     {
-        $httpClientConfigurator = (new HttpClientConfigurator())->setApiKey($apiKey);
+        $httpClientConfigurator = (new HttpClientConfigurator())
+            ->setApiKey($apiKey)
+            ->setEndpoint($endPoint);
 
         return self::configure($httpClientConfigurator);
     }
