@@ -3,13 +3,8 @@
 declare(strict_types=1);
 
 /*
- * This file is part of PHP CS Fixer.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * This software may be modified and distributed under the terms
+ * of the MIT license. See the LICENSE file for details.
  */
 
 namespace FAPI\Sylius\Model\Customer;
@@ -59,17 +54,24 @@ final class CustomerCreated implements CreatableFromArray
 
     /**
      * CustomerCreated constructor.
-     * @param int $id
+     *
+     * @param int         $id
      * @param UserCreated $user
-     * @param string $email
-     * @param string $emailCanonical
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $gender
+     * @param string      $email
+     * @param string      $emailCanonical
+     * @param string      $firstName
+     * @param string      $lastName
+     * @param string      $gender
      */
-    private function __construct(int $id, UserCreated $user, string $email, string $emailCanonical, string $firstName,
-        string $lastName, string $gender)
-    {
+    private function __construct(
+        int $id,
+        UserCreated $user,
+        string $email,
+        string $emailCanonical,
+        string $firstName,
+        string $lastName,
+        string $gender
+    ) {
         $this->id = $id;
         if (-1 !== $user->getId()) {
             $this->user = $user;

@@ -38,10 +38,11 @@ final class UserCreated implements CreatableFromArray
 
     /**
      * UserCreated constructor.
-     * @param int $id
-     * @param string $username
+     *
+     * @param int      $id
+     * @param string   $username
      * @param string[] $roles
-     * @param bool $enabled
+     * @param bool     $enabled
      */
     private function __construct(int $id, string $username, $roles, bool $enabled)
     {
@@ -56,7 +57,7 @@ final class UserCreated implements CreatableFromArray
      *
      * @return UserCreated
      */
-    public static function createFromArray(array $data): UserCreated
+    public static function createFromArray(array $data): self
     {
         $id = -1;
 
@@ -64,7 +65,7 @@ final class UserCreated implements CreatableFromArray
             $id = $data['id'];
         }
 
-        $username = "";
+        $username = '';
         if (isset($data['username'])) {
             $username = $data['username'];
         }
