@@ -48,13 +48,13 @@ final class Customer extends HttpApi
         }
 
         $params = array_merge([
-            'mail' => $email,
             'firstName' => $firstName,
             'lastName' => $lastName,
+            'email' => $email,
             'gender' => $gender,
         ], $optionalParams);
 
-        $response = $this->httpPost('/api/v1/customers', $params);
+        $response = $this->httpPost('/api/v1/customers/', $params);
 
         if (!$this->hydrator) {
             return $response;
