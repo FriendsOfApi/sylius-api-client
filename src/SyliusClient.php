@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace FAPI\Sylius;
 
+use FAPI\Sylius\Api\Products;
 use FAPI\Sylius\Hydrator\Hydrator;
 use FAPI\Sylius\Hydrator\ModelHydrator;
 use Http\Client\HttpClient;
@@ -96,5 +97,14 @@ final class SyliusClient
     public function carts(): Api\Carts
     {
         return new Api\Carts($this->httpClient, $this->hydrator, $this->requestBuilder);
+    }
+
+    /**
+     * @return Api\Products
+     */
+    public function products(): Api\Products
+    {
+        return new Api\Products($this->httpClient, $this->hydrator, $this->requestBuilder);
+
     }
 }
