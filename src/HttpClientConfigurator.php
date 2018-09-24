@@ -76,6 +76,7 @@ final class HttpClientConfigurator
         $plugins[] = new Plugin\AddHostPlugin($this->uriFactory->createUri($this->endpoint));
         $plugins[] = new Plugin\HeaderDefaultsPlugin([
             'User-Agent' => 'FriendsOfApi/sylius (https://github.com/FriendsOfApi/sylius)',
+            'Content-type' => 'application/json'
         ]);
 
         if (null !== $this->apiKey) {
