@@ -107,4 +107,9 @@ final class SyliusClient
         return new Api\Products($this->httpClient, $this->hydrator, $this->requestBuilder);
 
     }
+
+    public function checkouts(): Api\Checkouts
+    {
+        return new Api\Checkouts($this->httpClient, $this->hydrator, $this->requestBuilder);
+    }
 }
