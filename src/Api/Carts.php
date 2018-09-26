@@ -23,6 +23,33 @@ use Psr\Http\Message\ResponseInterface;
 final class Carts extends HttpApi
 {
     /**
+     * @param int $id
+     *
+     * @return Cart|ResponseInterface
+     *
+     * @throws Exception
+     */
+    public function get(int $id)
+    {
+        if (empty($id)) {
+            throw new InvalidArgumentException('Id cannot be empty');
+        }
+
+        $response = $this->httpGet("/api/v1/carts/{$id}");
+
+        if (!$this->hydrator) {
+            return $response;
+        }
+
+        // Use any valid status code here
+        if ($response->getStatusCode() !== 200) {
+            $this->handleErrors($response);
+        }
+
+        return $this->hydrator->hydrate($response, Cart::class);
+    }
+
+    /**
      * @param string $message
      * @param string $location
      * @param array  $hashtags
