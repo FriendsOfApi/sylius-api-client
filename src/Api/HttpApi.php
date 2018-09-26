@@ -11,10 +11,10 @@ namespace FAPI\Sylius\Api;
 
 use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\DomainException;
-use FAPI\Sylius\Hydrator\NoopHydrator;
-use Http\Client\HttpClient;
 use FAPI\Sylius\Hydrator\Hydrator;
+use FAPI\Sylius\Hydrator\NoopHydrator;
 use FAPI\Sylius\RequestBuilder;
+use Http\Client\HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -62,7 +62,7 @@ abstract class HttpApi
      */
     protected function httpGet(string $path, array $params = [], array $requestHeaders = []): ResponseInterface
     {
-        if (count($params) > 0) {
+        if (\count($params) > 0) {
             $path .= '?'.http_build_query($params);
         }
 
@@ -134,18 +134,6 @@ abstract class HttpApi
     }
 
     /**
-     * Create a JSON encoded version of an array of parameters.
-     *
-     * @param array $params Request parameters
-     *
-     * @return null|string
-     */
-    private function createJsonBody(array $params)
-    {
-        return (count($params) === 0) ? null : json_encode($params, empty($params) ? JSON_FORCE_OBJECT : 0);
-    }
-
-    /**
      * Handle HTTP errors.
      *
      * Call is controlled by the specific API methods.
@@ -159,11 +147,24 @@ abstract class HttpApi
         switch ($response->getStatusCode()) {
             case 404:
                 throw new DomainExceptions\NotFoundException();
-                break;
 
+                break;
             default:
                 throw new DomainExceptions\UnknownErrorException();
+
                 break;
         }
+    }
+
+    /**
+     * Create a JSON encoded version of an array of parameters.
+     *
+     * @param array $params Request parameters
+     *
+     * @return null|string
+     */
+    private function createJsonBody(array $params)
+    {
+        return (0 === \count($params)) ? null : json_encode($params, empty($params) ? JSON_FORCE_OBJECT : 0);
     }
 }

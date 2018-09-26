@@ -105,7 +105,6 @@ final class SyliusClient
     public function products(): Api\Products
     {
         return new Api\Products($this->httpClient, $this->hydrator, $this->requestBuilder);
-
     }
 
     public function checkouts(): Api\Checkouts

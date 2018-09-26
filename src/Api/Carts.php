@@ -13,7 +13,6 @@ use FAPI\Sylius\Exception;
 use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
 use FAPI\Sylius\Model\Cart\Cart;
-use FAPI\Sylius\Model\Cart\CartCreated;
 use FAPI\Sylius\Model\Cart\CartItem;
 use Psr\Http\Message\ResponseInterface;
 
@@ -25,9 +24,9 @@ final class Carts extends HttpApi
     /**
      * @param int $id
      *
-     * @return Cart|ResponseInterface
-     *
      * @throws Exception
+     *
+     * @return Cart|ResponseInterface
      */
     public function get(int $id)
     {
@@ -42,7 +41,7 @@ final class Carts extends HttpApi
         }
 
         // Use any valid status code here
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             $this->handleErrors($response);
         }
 
@@ -102,12 +101,14 @@ final class Carts extends HttpApi
     }
 
     /**
-     * @param int $cartId
+     * @param int    $cartId
      * @param string $variant
-     * @param int $quantity
-     * @return CartItem|ResponseInterface
+     * @param int    $quantity
+     *
      * @throws Exception\DomainException
      * @throws Exception\Domain\ValidationException
+     *
+     * @return CartItem|ResponseInterface
      */
     public function addItem(int $cartId, string $variant, int $quantity)
     {

@@ -50,11 +50,11 @@ final class Cart implements CreatableFromArray
     /**
      * CartCreated constructor.
      *
-     * @param int             $id
+     * @param int      $id
      * @param Customer $customer
-     * @param string          $currencyCode
-     * @param string          $localeCode
-     * @param string          $checkoutState
+     * @param string   $currencyCode
+     * @param string   $localeCode
+     * @param string   $checkoutState
      */
     private function __construct(
         int $id,
@@ -110,7 +110,6 @@ final class Cart implements CreatableFromArray
                 $items[] = CartItem::createFromArray($item);
             }
         }
-
 
         return new self($id, $customer, $currencyCode, $localeCode, $checkoutState, $items);
     }

@@ -86,7 +86,7 @@ final class ProductCollection implements CreatableFromArray
 
         /** @var Product[] $items */
         $items = [];
-        if (isset($data['_embedded']) && isset($data['_embedded']['items'])) {
+        if (isset($data['_embedded'], $data['_embedded']['items'])) {
             foreach ($data['_embedded']['items'] as $item) {
                 $items[] = Product::createFromArray($item);
             }

@@ -36,7 +36,6 @@ final class Product implements CreatableFromArray
      */
     private $translations;
 
-
     private function __construct(
         int $id,
         string $code,

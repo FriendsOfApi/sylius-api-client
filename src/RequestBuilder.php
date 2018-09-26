@@ -17,7 +17,7 @@ use Psr\Http\Message\RequestInterface;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  *
- * @internal This class should not be used outside of the API Client, it is not part of the BC promise.
+ * @internal this class should not be used outside of the API Client, it is not part of the BC promise
  */
 final class RequestBuilder
 {
@@ -49,7 +49,7 @@ final class RequestBuilder
      * @param string            $method
      * @param string            $uri
      * @param array             $headers
-     * @param array|string|null $body    Request body. If body is an array we will send a as multipart stream request.
+     * @param null|array|string $body    Request body. If body is an array we will send a as multipart stream request.
      *                                   If array, each array *item* MUST look like:
      *                                   array (
      *                                   'content' => string|resource|StreamInterface,
@@ -62,15 +62,14 @@ final class RequestBuilder
      */
     public function create(string $method, string $uri, array $headers = [], $body = null): RequestInterface
     {
-        if (!is_array($body)) {
+        if (!\is_array($body)) {
             return $this->requestFactory->createRequest($method, $uri, $headers, $body);
         }
 
         foreach ($body as $item) {
             $name = $item['name'];
             $content = $item['content'];
-            unset($item['name']);
-            unset($item['content']);
+            unset($item['name'], $item['content']);
 
             $this->multipartStreamBuilder->addResource($name, $content, $item);
         }

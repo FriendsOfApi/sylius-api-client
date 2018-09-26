@@ -54,13 +54,13 @@ final class Customer implements CreatableFromArray
     /**
      * Customer constructor.
      *
-     * @param int         $id
-     * @param User $user
-     * @param string      $email
-     * @param string      $emailCanonical
-     * @param string      $firstName
-     * @param string      $lastName
-     * @param string      $gender
+     * @param int    $id
+     * @param User   $user
+     * @param string $email
+     * @param string $emailCanonical
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $gender
      */
     private function __construct(
         int $id,

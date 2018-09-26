@@ -31,11 +31,11 @@ final class Variant implements CreatableFromArray
      */
     private $translations;
 
-
     /**
      * Variant constructor.
-     * @param int $id
-     * @param string $code
+     *
+     * @param int        $id
+     * @param string     $code
      * @param string[][] $translations
      */
     private function __construct(

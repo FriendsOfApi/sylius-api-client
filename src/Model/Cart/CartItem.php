@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace FAPI\Sylius\Model\Cart;
 
 use FAPI\Sylius\Model\CreatableFromArray;
-use FAPI\Sylius\Model\Customer\Customer;
 use FAPI\Sylius\Model\Product\Variant;
 
 /**
@@ -45,10 +44,11 @@ final class CartItem implements CreatableFromArray
 
     /**
      * CartItem constructor.
-     * @param int $id
-     * @param int $quantity
-     * @param int $unitPrice
-     * @param int $total
+     *
+     * @param int          $id
+     * @param int          $quantity
+     * @param int          $unitPrice
+     * @param int          $total
      * @param null|Variant $variant
      */
     private function __construct(

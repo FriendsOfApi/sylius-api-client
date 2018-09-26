@@ -25,9 +25,9 @@ final class Customers extends HttpApi
      * @param string $location
      * @param array  $hashtags
      *
-     * @return Customer|ResponseInterface
-     *
      * @throws Exception
+     *
+     * @return Customer|ResponseInterface
      */
     public function create(string $email, string $firstName, string $lastName, string $gender, array $optionalParams = [])
     {
@@ -61,14 +61,15 @@ final class Customers extends HttpApi
         }
 
         // Use any valid status code here
-        if ($response->getStatusCode() !== 201) {
+        if (201 !== $response->getStatusCode()) {
             switch ($response->getStatusCode()) {
                 case 400:
                     throw new DomainExceptions\ValidationException();
-                    break;
 
+                    break;
                 default:
                     $this->handleErrors($response);
+
                     break;
             }
         }

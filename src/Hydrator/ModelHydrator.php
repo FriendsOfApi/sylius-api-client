@@ -29,7 +29,7 @@ final class ModelHydrator implements Hydrator
     public function hydrate(ResponseInterface $response, string $class)
     {
         $body = $response->getBody()->__toString();
-        if (strpos($response->getHeaderLine('Content-Type'), 'application/json') !== 0) {
+        if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
             throw new HydrationException('The ModelHydrator cannot hydrate response with Content-Type:'.$response->getHeaderLine('Content-Type'));
         }
 
@@ -39,7 +39,7 @@ final class ModelHydrator implements Hydrator
         }
 
         if (is_subclass_of($class, CreatableFromArray::class)) {
-            $object = call_user_func($class.'::createFromArray', $data);
+            $object = \call_user_func($class.'::createFromArray', $data);
         } else {
             $object = new $class($data);
         }

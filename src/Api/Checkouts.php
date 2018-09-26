@@ -12,10 +12,6 @@ namespace FAPI\Sylius\Api;
 use FAPI\Sylius\Exception;
 use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
-use FAPI\Sylius\Model\Cart\Cart;
-use FAPI\Sylius\Model\Cart\CartCreated;
-use FAPI\Sylius\Model\Cart\CartItem;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
@@ -34,9 +30,9 @@ final class Checkouts extends HttpApi
     /**
      * @param int $id
      *
-     * @return bool
-     *
      * @throws Exception
+     *
+     * @return bool
      */
     public function putAddress(int $cartId, array $shippingAddress, bool $differentBillingAddress = false, array $billingAddress = []): bool
     {

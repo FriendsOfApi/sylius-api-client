@@ -10,8 +10,6 @@ declare(strict_types=1);
 namespace FAPI\Sylius\Api;
 
 use FAPI\Sylius\Exception;
-use FAPI\Sylius\Exception\Domain as DomainExceptions;
-use FAPI\Sylius\Exception\InvalidArgumentException;
 use FAPI\Sylius\Model\Product\ProductCollection;
 use Psr\Http\Message\ResponseInterface;
 
@@ -22,8 +20,10 @@ final class Products extends HttpApi
 {
     /**
      * @param array $params
-     * @return ProductCollection|ResponseInterface
+     *
      * @throws Exception\DomainException
+     *
+     * @return ProductCollection|ResponseInterface
      */
     public function getAll(array $params = [])
     {
@@ -35,7 +35,7 @@ final class Products extends HttpApi
 
         $body = $response->getBody()->__toString();
         // Use any valid status code here
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             $this->handleErrors($response);
         }
 
