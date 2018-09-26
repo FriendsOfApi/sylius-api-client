@@ -11,6 +11,7 @@ namespace FAPI\Sylius\Model\Cart;
 
 use FAPI\Sylius\Model\CreatableFromArray;
 use FAPI\Sylius\Model\Customer\Customer;
+use FAPI\Sylius\Model\Product\Variant;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
@@ -37,24 +38,39 @@ final class CartItem implements CreatableFromArray
      */
     private $total;
 
-    //TODO: Add more of the fields in create cartitem response.
+    /**
+     * @var Variant
+     */
+    private $variant;
 
+    /**
+     * CartItem constructor.
+     * @param int $id
+     * @param int $quantity
+     * @param int $unitPrice
+     * @param int $total
+     * @param null|Variant $variant
+     */
     private function __construct(
         int $id,
         int $quantity,
         int $unitPrice,
-        int $total
+        int $total,
+        Variant $variant
     ) {
         $this->id = $id;
         $this->quantity = $quantity;
         $this->unitPrice = $unitPrice;
         $this->total = $total;
+        if (null !== $variant) {
+            $this->variant = $variant;
+        }
     }
 
     /**
      * @param array $data
      *
-     * @return Customer
+     * @return CartItem
      */
     public static function createFromArray(array $data): self
     {
@@ -78,7 +94,12 @@ final class CartItem implements CreatableFromArray
             $total = $data['total'];
         }
 
-        return new self($id, $quantity, $unitPrice, $total);
+        $variant = null;
+        if (isset($data['variant'])) {
+            $variant = Variant::createFromArray($data['variant']);
+        }
+
+        return new self($id, $quantity, $unitPrice, $total, $variant);
     }
 
     /**
