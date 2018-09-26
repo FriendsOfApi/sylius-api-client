@@ -75,7 +75,7 @@ final class Cart implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return Customer
+     * @return Cart
      */
     public static function createFromArray(array $data): self
     {
