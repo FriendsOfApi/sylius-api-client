@@ -43,6 +43,11 @@ final class Cart implements CreatableFromArray
     private $checkoutState;
 
     /**
+     * @var CartItem[]
+     */
+    private $items;
+
+    /**
      * CartCreated constructor.
      *
      * @param int             $id
@@ -56,13 +61,15 @@ final class Cart implements CreatableFromArray
         Customer $customer,
         string $currencyCode,
         string $localeCode,
-        string $checkoutState
+        string $checkoutState,
+        array $items
     ) {
         $this->id = $id;
         $this->customer = $customer;
         $this->currencyCode = $currencyCode;
         $this->localeCode = $localeCode;
         $this->checkoutState = $checkoutState;
+        $this->items = $items;
     }
 
     /**
@@ -96,8 +103,16 @@ final class Cart implements CreatableFromArray
         if (isset($data['checkoutState'])) {
             $checkoutState = $data['checkoutState'];
         }
+        /** @var CartItem[] $items */
+        $items = [];
+        if (isset($data['items'])) {
+            foreach ($data['items'] as $item) {
+                $items[] = CartItem::createFromArray($item);
+            }
+        }
 
-        return new self($id, $customer, $currencyCode, $localeCode, $checkoutState);
+
+        return new self($id, $customer, $currencyCode, $localeCode, $checkoutState, $items);
     }
 
     /**
@@ -138,5 +153,13 @@ final class Cart implements CreatableFromArray
     public function getCheckoutState(): string
     {
         return $this->checkoutState;
+    }
+
+    /**
+     * @return CartItem[]
+     */
+    public function getItems(): array
+    {
+        return $this->items;
     }
 }
