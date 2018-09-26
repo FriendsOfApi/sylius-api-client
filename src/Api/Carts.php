@@ -14,6 +14,7 @@ use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
 use FAPI\Sylius\Model\Cart\Cart;
 use FAPI\Sylius\Model\Cart\CartCreated;
+use FAPI\Sylius\Model\Cart\CartItem;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -71,5 +72,55 @@ final class Carts extends HttpApi
         }
 
         return $this->hydrator->hydrate($response, Cart::class);
+    }
+
+    /**
+     * @param int $cartId
+     * @param string $variant
+     * @param int $quantity
+     * @return CartItem|ResponseInterface
+     * @throws Exception\DomainException
+     * @throws Exception\Domain\ValidationException
+     */
+    public function addItem(int $cartId, string $variant, int $quantity)
+    {
+        if (empty($cartId)) {
+            throw new InvalidArgumentException('Cart id field cannot be empty');
+        }
+
+        if (empty($variant)) {
+            throw new InvalidArgumentException('variant cannot be empty');
+        }
+
+        if (empty($quantity)) {
+            throw new InvalidArgumentException('quantity cannot be empty');
+        }
+
+        $params = [
+            'variant' => $variant,
+            'quantity' => $quantity,
+        ];
+
+        $response = $this->httpPost("/api/v1/carts/{$cartId}/items/", $params);
+
+        if (!$this->hydrator) {
+            return $response;
+        }
+
+        // Use any valid status code here
+        if (201 !== $response->getStatusCode()) {
+            switch ($response->getStatusCode()) {
+                case 400:
+                    throw new DomainExceptions\ValidationException();
+
+                    break;
+                default:
+                    $this->handleErrors($response);
+
+                    break;
+            }
+        }
+
+        return $this->hydrator->hydrate($response, CartItem::class);
     }
 }
