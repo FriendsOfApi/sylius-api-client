@@ -2,7 +2,7 @@
     "name": "friendsofapi/sylius",
     "description": "A good base for a API client",
     "license": "MIT",
-    "keywords": ["api"],
+    "keywords": ["api", "sylius"],
     "authors": [
         {
             "name": "Tobias Nyholm",
