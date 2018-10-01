@@ -12,6 +12,7 @@ namespace FAPI\Sylius\Api;
 use FAPI\Sylius\Exception;
 use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
+use FAPI\Sylius\Model\Checkout\ShipmentCollection;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
@@ -73,5 +74,37 @@ final class Checkouts extends HttpApi
         }
 
         return true;
+    }
+
+    /**
+     * @param int $cartId
+     * @return ShipmentCollection
+     * @throws Exception\DomainException
+     * @throws Exception\Domain\ValidationException
+     */
+    public function getShippingMethods(int $cartId): ShipmentCollection
+    {
+        if (empty($cartId)) {
+            throw new InvalidArgumentException('Cart id cannot be empty');
+        }
+
+        $response = $this->httpGet("/api/v1/checkouts/select-shipping/{$cartId}");
+
+        $body = $response->getBody()->__toString();
+        // Use any valid status code here
+        if (200 !== $response->getStatusCode()) {
+            switch ($response->getStatusCode()) {
+                case 400:
+                    throw new DomainExceptions\ValidationException();
+
+                    break;
+                default:
+                    $this->handleErrors($response);
+
+                    break;
+            }
+        }
+
+        return $this->hydrator->hydrate($response, ShipmentCollection::class);
     }
 }
