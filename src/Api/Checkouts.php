@@ -77,6 +77,43 @@ final class Checkouts extends HttpApi
         return true;
     }
 
+    public function putPaymentMethod(int $cartId, string $paymentMethodCode): bool
+    {
+        if (empty($cartId)) {
+            throw new InvalidArgumentException('Cart id cannot be empty');
+        }
+
+        if (empty($paymentMethodCode)) {
+            throw new InvalidArgumentException('Payment method code cannot be empty');
+        }
+
+        $params = [
+            'payments' => [
+                [
+                    'method' => $paymentMethodCode,
+                ],
+            ],
+        ];
+
+        $response = $this->httpPut("/api/v1/checkouts/select-payment/{$cartId}", $params);
+
+        // Use any valid status code here
+        if (204 !== $response->getStatusCode()) {
+            switch ($response->getStatusCode()) {
+                case 400:
+                    throw new DomainExceptions\ValidationException();
+
+                    break;
+                default:
+                    $this->handleErrors($response);
+
+                    break;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * @param int $cartId
      *
