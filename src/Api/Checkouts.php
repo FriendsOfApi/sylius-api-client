@@ -77,6 +77,15 @@ final class Checkouts extends HttpApi
         return true;
     }
 
+    /**
+     * @param int    $cartId
+     * @param string $paymentMethodCode
+     *
+     * @throws Exception\DomainException
+     * @throws Exception\Domain\ValidationException
+     *
+     * @return bool
+     */
     public function putPaymentMethod(int $cartId, string $paymentMethodCode): bool
     {
         if (empty($cartId)) {
@@ -96,6 +105,39 @@ final class Checkouts extends HttpApi
         ];
 
         $response = $this->httpPut("/api/v1/checkouts/select-payment/{$cartId}", $params);
+
+        // Use any valid status code here
+        if (204 !== $response->getStatusCode()) {
+            switch ($response->getStatusCode()) {
+                case 400:
+                    throw new DomainExceptions\ValidationException();
+
+                    break;
+                default:
+                    $this->handleErrors($response);
+
+                    break;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param int $cartId
+     *
+     * @throws Exception\DomainException
+     * @throws Exception\Domain\ValidationException
+     *
+     * @return bool
+     */
+    public function complete(int $cartId)
+    {
+        if (empty($cartId)) {
+            throw new InvalidArgumentException('Cart id cannot be empty');
+        }
+
+        $response = $this->httpPut("/api/v1/checkouts/complete/{$cartId}");
 
         // Use any valid status code here
         if (204 !== $response->getStatusCode()) {
