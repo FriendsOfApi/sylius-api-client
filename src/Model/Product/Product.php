@@ -36,16 +36,23 @@ final class Product implements CreatableFromArray
      */
     private $translations;
 
+    /**
+     * @var Image[]
+     */
+    private $images;
+
     private function __construct(
         int $id,
         string $code,
         array $channels,
-        array $translations
+        array $translations,
+        array $images
     ) {
         $this->id = $id;
         $this->code = $code;
         $this->channels = $channels;
         $this->translations = $translations;
+        $this->images = $images;
     }
 
     /**
@@ -75,7 +82,14 @@ final class Product implements CreatableFromArray
             $translations = $data['translations'];
         }
 
-        return new self($id, $code, $channels, $translations);
+        $images = [];
+        if (isset($data['images'])) {
+            foreach ($data['images'] as $image) {
+                $images[] = Image::createFromArray($image);
+            }
+        }
+
+        return new self($id, $code, $channels, $translations, $images);
     }
 
     /**
@@ -108,5 +122,13 @@ final class Product implements CreatableFromArray
     public function getTranslations(): array
     {
         return $this->translations;
+    }
+
+    /**
+     * @return Image[]
+     */
+    public function getImages(): array
+    {
+        return $this->images;
     }
 }
