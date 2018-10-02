@@ -38,7 +38,8 @@ final class PaymentMethod implements CreatableFromArray
 
     /**
      * PaymentMethod constructor.
-     * @param int $id
+     *
+     * @param int    $id
      * @param string $code
      * @param string $name
      * @param string $description
