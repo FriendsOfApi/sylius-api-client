@@ -12,6 +12,7 @@ namespace FAPI\Sylius\Api;
 use FAPI\Sylius\Exception;
 use FAPI\Sylius\Model\Product\ProductCollection;
 use FAPI\Sylius\Model\Product\VariantCollection;
+use FAPI\Sylius\Model\Product\Product;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -19,6 +20,22 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class Products extends HttpApi
 {
+    public function get(string $productCode)
+    {
+        $response = $this->httpGet("/api/v1/products/{$productCode}");
+
+        if (!$this->hydrator) {
+            return $response;
+        }
+
+        // Use any valid status code here
+        if (200 !== $response->getStatusCode()) {
+            $this->handleErrors($response);
+        }
+
+        return $this->hydrator->hydrate($response, Product::class);
+    }
+
     /**
      * @param array $params
      *
