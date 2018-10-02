@@ -79,9 +79,11 @@ final class Checkouts extends HttpApi
 
     /**
      * @param int $cartId
-     * @return ShipmentCollection
+     *
      * @throws Exception\DomainException
      * @throws Exception\Domain\ValidationException
+     *
+     * @return ShipmentCollection
      */
     public function getShippingMethods(int $cartId): ShipmentCollection
     {
@@ -110,9 +112,11 @@ final class Checkouts extends HttpApi
 
     /**
      * @param int $cartId
-     * @return PaymentCollection
+     *
      * @throws Exception\DomainException
      * @throws Exception\Domain\ValidationException
+     *
+     * @return PaymentCollection
      */
     public function getPaymentMethods(int $cartId): PaymentCollection
     {
