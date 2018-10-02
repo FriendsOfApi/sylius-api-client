@@ -39,8 +39,10 @@ final class ShipmentCollection implements CreatableFromArray
     public static function createFromArray(array $data): self
     {
         $shipments = [];
-        foreach ($data['shipments'] as $shipment) {
-            $shipments[] = Shipment::createFromArray($shipment);
+        if (!empty($data)) {
+            foreach ($data['shipments'] as $shipment) {
+                $shipments[] = Shipment::createFromArray($shipment);
+            }
         }
 
         return new self($shipments);
