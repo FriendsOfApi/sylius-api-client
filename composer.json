@@ -1,6 +1,6 @@
 {
-    "name": "friendsofapi/sylius-api-cliet",
-    "description": "A good base for a API client",
+    "name": "friendsofapi/sylius-api-client",
+    "description": "A client for Sylius APIs",
     "license": "MIT",
     "keywords": ["api", "sylius"],
     "authors": [
@@ -11,6 +11,10 @@
         {
             "name": "Márk Sági-Kazár",
             "email": "mark.sagikazar@gmail.com"
+        },
+        {
+            "name": "Kasim Taskin",
+            "email": "taskinkasim@gmail.com"
         }
     ],
     "require": {
