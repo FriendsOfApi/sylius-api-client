@@ -1,5 +1,5 @@
 {
-    "name": "friendsofapi/sylius-admin-api-cliet",
+    "name": "friendsofapi/sylius-api-cliet",
     "description": "A good base for a API client",
     "license": "MIT",
     "keywords": ["api", "sylius"],
