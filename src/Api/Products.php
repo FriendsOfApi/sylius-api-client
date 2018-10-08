@@ -61,8 +61,10 @@ final class Products extends HttpApi
 
     /**
      * @param string $productCode
-     * @param array $params
+     * @param array  $params
+     *
      * @return VariantCollection|ResponseInterface
+     *
      * @throws Exception\DomainException
      */
     public function getVariants(string $productCode, array $params = [])

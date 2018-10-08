@@ -82,7 +82,6 @@ final class Variant implements CreatableFromArray
             $channelPricings = $data['channelPricings'];
         }
 
-
         return new self($id, $code, $translations, $channelPricings);
     }
 
