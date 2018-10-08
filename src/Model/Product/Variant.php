@@ -32,6 +32,11 @@ final class Variant implements CreatableFromArray
     private $translations;
 
     /**
+     * @var string[][]
+     */
+    private $channelPricings;
+
+    /**
      * Variant constructor.
      *
      * @param int        $id
@@ -41,11 +46,13 @@ final class Variant implements CreatableFromArray
     private function __construct(
         int $id,
         string $code,
-        array $translations
+        array $translations,
+        array $channelPricings
     ) {
         $this->id = $id;
         $this->code = $code;
         $this->translations = $translations;
+        $this->channelPricings = $channelPricings;
     }
 
     /**
@@ -70,7 +77,13 @@ final class Variant implements CreatableFromArray
             $translations = $data['translations'];
         }
 
-        return new self($id, $code, $translations);
+        $channelPricings = [];
+        if (isset($data['channelPricings'])) {
+            $channelPricings = $data['channelPricings'];
+        }
+
+
+        return new self($id, $code, $translations, $channelPricings);
     }
 
     /**
@@ -95,5 +108,13 @@ final class Variant implements CreatableFromArray
     public function getTranslations(): array
     {
         return $this->translations;
+    }
+
+    /**
+     * @return \string[][]
+     */
+    public function getChannelPricings(): array
+    {
+        return $this->channelPricings;
     }
 }
