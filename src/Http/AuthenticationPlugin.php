@@ -7,6 +7,7 @@ namespace FAPI\Sylius\Http;
 use Http\Client\Common\Plugin;
 use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class AuthenticationPlugin implements Plugin
 {
@@ -24,14 +25,23 @@ class AuthenticationPlugin implements Plugin
 
     public function handleRequest(RequestInterface $request, callable $next, callable $first)
     {
-        if ($this->accessToken['expires'] < time()) {
-            // TODO refresh token.
-        }
-
         $header = sprintf('Bearer %s', $this->accessToken['access_token']);
         $request =  $request->withHeader('Authorization', $header);
 
-        $response = $next($request);
+        $promise = $next($request);
+        return $promise->then(function (ResponseInterface $response) use ($request, $next, $first) {
+            if ($response->getStatusCode() === 401) {
+                $x = 2;
+                // Retry
+                $promise = $this->handleRequest($request, $next, $first);
+
+                return $promise->wait();
+            }
+
+            return $response;
+        });
+
+
 
         return $response;
     }

@@ -79,8 +79,8 @@ final class ClientConfigurator
      */
     public function createConfiguredClient(): HttpClient
     {
-        if ($this->httpClientModified) {
-            $this->httpClientModified = false;
+        if ($this->configurationModified) {
+            $this->configurationModified = false;
             $plugins = $this->prependPlugins;
             $plugins[] = new Plugin\AddHostPlugin($this->uriFactory->createUri($this->endpoint));
             $plugins[] = new Plugin\HeaderDefaultsPlugin(
@@ -104,7 +104,7 @@ final class ClientConfigurator
 
     public function appendPlugin(Plugin ...$plugin): void
     {
-        $this->httpClientModified = true;
+        $this->configurationModified = true;
         foreach ($plugin as $p) {
             $this->appendPlugins[] = $p;
         }
@@ -112,7 +112,7 @@ final class ClientConfigurator
 
     public function prependPlugin(Plugin ...$plugin): void
     {
-        $this->httpClientModified = true;
+        $this->configurationModified = true;
         $plugin = array_reverse($plugin);
         foreach ($plugin as $p) {
             array_unshift($this->prependPlugins, $p);
@@ -124,10 +124,17 @@ final class ClientConfigurator
      */
     public function removePlugin(string $fqcn): void
     {
-        foreach ($this->plugins as $idx => $plugin) {
+        foreach ($this->prependPlugins as $idx => $plugin) {
             if ($plugin instanceof $fqcn) {
-                unset($this->plugins[$idx]);
-                $this->httpClientModified = true;
+                unset($this->prependPlugins[$idx]);
+                $this->configurationModified = true;
+            }
+        }
+
+        foreach ($this->appendPlugins as $idx => $plugin) {
+            if ($plugin instanceof $fqcn) {
+                unset($this->appendPlugins[$idx]);
+                $this->configurationModified = true;
             }
         }
     }

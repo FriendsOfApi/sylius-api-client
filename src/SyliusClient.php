@@ -79,7 +79,7 @@ final class SyliusClient
         $clientConfigurator = new ClientConfigurator();
         $clientConfigurator->setEndpoint($endpoint);
 
-        return new SyliusClient($clientConfigurator);
+        return new SyliusClient($clientConfigurator, $clientId, $clientSecret);
     }
 
     /**
@@ -89,7 +89,9 @@ final class SyliusClient
     public function createNewAccessToken(string $username, string $password): string
     {
         $this->getHttpClientConfigurator()->removePlugin(AuthenticationPlugin::class);
-        $request = $this->requestBuilder->create('POST', '/api/oauth/v2/token', [], http_build_query([
+        $request = $this->requestBuilder->create('POST', '/api/oauth/v2/token', [
+            'Content-type' => 'application/x-www-form-urlencoded',
+        ], http_build_query([
             'client_id'=>$this->clientId,
             'client_secret'=>$this->clientSecret,
             'grant_type' => 'password',
@@ -107,7 +109,7 @@ final class SyliusClient
      */
     public function getAccessToken(): string
     {
-        $this->authenticationPlugin->getAccessToken();
+        return $this->authenticationPlugin->getAccessToken();
     }
 
     /**
@@ -122,7 +124,7 @@ final class SyliusClient
     public function authenticate(string $accessToken): void
     {
         $this->getHttpClientConfigurator()->removePlugin(AuthenticationPlugin::class);
-        $this->getHttpClientConfigurator()->addPlugin($this->authenticationPlugin = new AuthenticationPlugin($accessToken));
+        $this->getHttpClientConfigurator()->appendPlugin($this->authenticationPlugin = new AuthenticationPlugin($accessToken));
     }
 
     public function customers(): Api\Customers
