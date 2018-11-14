@@ -9,6 +9,11 @@ use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * This will automatically refresh expired access token.
+ *
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 class AuthenticationPlugin implements Plugin
 {
     /**
@@ -16,12 +21,16 @@ class AuthenticationPlugin implements Plugin
      */
     private $accessToken;
 
+    /**
+     * @var Authenticator
+     */
+    private $authenticator;
 
-    public function __construct(string $accessToken)
+    public function __construct(Authenticator $authenticator, string $accessToken)
     {
+        $this->authenticator = $authenticator;
         $this->accessToken = json_decode($accessToken, true);
     }
-
 
     public function handleRequest(RequestInterface $request, callable $next, callable $first)
     {
@@ -30,18 +39,27 @@ class AuthenticationPlugin implements Plugin
 
         $promise = $next($request);
         return $promise->then(function (ResponseInterface $response) use ($request, $next, $first) {
-            if ($response->getStatusCode() === 401) {
-                $x = 2;
-                // Retry
-                $promise = $this->handleRequest($request, $next, $first);
-
-                return $promise->wait();
+            if ($response->getStatusCode() !== 401) {
+                return $response;
             }
 
-            return $response;
+            $accessToken = $this->authenticator->refreshAccessToken($this->accessToken['access_token'], $this->accessToken['refresh_token']);
+            if (null === $accessToken) {
+                return $response;
+            }
+
+            // Save new token
+            $this->accessToken = json_decode($accessToken, true);
+
+            // Add new token to request
+            $header = sprintf('Bearer %s', $this->accessToken['access_token']);
+            $request =  $request->withHeader('Authorization', $header);
+
+            // Retry
+            $promise = $this->handleRequest($request, $next, $first);
+
+            return $promise->wait();
         });
-
-
 
         return $response;
     }

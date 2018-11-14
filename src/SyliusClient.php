@@ -11,6 +11,7 @@ namespace FAPI\Sylius;
 
 use FAPI\Sylius\Api\Products;
 use FAPI\Sylius\Http\AuthenticationPlugin;
+use FAPI\Sylius\Http\Authenticator;
 use FAPI\Sylius\Http\ClientConfigurator;
 use FAPI\Sylius\Hydrator\Hydrator;
 use FAPI\Sylius\Hydrator\ModelHydrator;
@@ -52,9 +53,9 @@ final class SyliusClient
     private $clientSecret;
 
     /**
-     * @var AuthenticationPlugin|null
+     * @var Authenticator
      */
-    private $authenticationPlugin;
+    private $authenticator;
 
     /**
      * The constructor accepts already configured HTTP clients.
@@ -68,10 +69,9 @@ final class SyliusClient
         RequestBuilder $requestBuilder = null
     ) {
         $this->clientConfigurator = $clientConfigurator;
-        $this->clientId = $clientId;
-        $this->clientSecret = $clientSecret;
         $this->hydrator = $hydrator ?: new ModelHydrator();
         $this->requestBuilder = $requestBuilder ?: new RequestBuilder();
+        $this->authenticator = new Authenticator($this->requestBuilder, $this->clientConfigurator->createConfiguredClient(), $clientId, $clientSecret);
     }
 
     public static function create(string $endpoint, string $clientId, string $clientSecret): self
@@ -89,27 +89,8 @@ final class SyliusClient
     public function createNewAccessToken(string $username, string $password): string
     {
         $this->getHttpClientConfigurator()->removePlugin(AuthenticationPlugin::class);
-        $request = $this->requestBuilder->create('POST', '/api/oauth/v2/token', [
-            'Content-type' => 'application/x-www-form-urlencoded',
-        ], http_build_query([
-            'client_id'=>$this->clientId,
-            'client_secret'=>$this->clientSecret,
-            'grant_type' => 'password',
-            'username' => $username,
-            'password' => $password,
-        ]));
-        $response = $this->clientConfigurator->createConfiguredClient()->sendRequest($request);
 
-        return $response->getBody()->__toString();
-    }
-
-    /**
-     * The access token may have been refreshed during the requests. Use this function to
-     * get back the (possibly) refreshed access token.
-     */
-    public function getAccessToken(): string
-    {
-        return $this->authenticationPlugin->getAccessToken();
+        return $this->authenticator->createAccessToken($username, $password);
     }
 
     /**
@@ -124,8 +105,18 @@ final class SyliusClient
     public function authenticate(string $accessToken): void
     {
         $this->getHttpClientConfigurator()->removePlugin(AuthenticationPlugin::class);
-        $this->getHttpClientConfigurator()->appendPlugin($this->authenticationPlugin = new AuthenticationPlugin($accessToken));
+        $this->getHttpClientConfigurator()->appendPlugin(new AuthenticationPlugin($this->authenticator, $accessToken));
     }
+
+    /**
+     * The access token may have been refreshed during the requests. Use this function to
+     * get back the (possibly) refreshed access token.
+     */
+    public function getAccessToken(): string
+    {
+        return $this->authenticator->getAccessToken();
+    }
+
 
     public function customers(): Api\Customers
     {
