@@ -88,7 +88,7 @@ final class SyliusClient
      */
     public function createNewAccessToken(string $username, string $password): string
     {
-        $this->getHttpClientConfigurator()->removePlugin(AuthenticationPlugin::class);
+        $this->clientConfigurator->removePlugin(AuthenticationPlugin::class);
 
         return $this->authenticator->createAccessToken($username, $password);
     }
@@ -104,8 +104,8 @@ final class SyliusClient
      */
     public function authenticate(string $accessToken): void
     {
-        $this->getHttpClientConfigurator()->removePlugin(AuthenticationPlugin::class);
-        $this->getHttpClientConfigurator()->appendPlugin(new AuthenticationPlugin($this->authenticator, $accessToken));
+        $this->clientConfigurator->removePlugin(AuthenticationPlugin::class);
+        $this->clientConfigurator->appendPlugin(new AuthenticationPlugin($this->authenticator, $accessToken));
     }
 
     /**
@@ -141,10 +141,5 @@ final class SyliusClient
     private function getHttpClient(): HttpClient
     {
         return $this->clientConfigurator->createConfiguredClient();
-    }
-
-    protected function getHttpClientConfigurator(): ClientConfigurator
-    {
-        return $this->clientConfigurator;
     }
 }
