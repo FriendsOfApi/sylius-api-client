@@ -10,6 +10,9 @@ declare(strict_types=1);
 namespace FAPI\Sylius;
 
 use FAPI\Sylius\Api\Products;
+use FAPI\Sylius\Http\AuthenticationPlugin;
+use FAPI\Sylius\Http\Authenticator;
+use FAPI\Sylius\Http\ClientConfigurator;
 use FAPI\Sylius\Hydrator\Hydrator;
 use FAPI\Sylius\Hydrator\ModelHydrator;
 use Http\Client\HttpClient;
@@ -35,80 +38,108 @@ final class SyliusClient
     private $requestBuilder;
 
     /**
+     * @var ClientConfigurator
+     */
+    private $clientConfigurator;
+
+    /**
+     * @var string|null
+     */
+    private $clientId;
+
+    /**
+     * @var string|null
+     */
+    private $clientSecret;
+
+    /**
+     * @var Authenticator
+     */
+    private $authenticator;
+
+    /**
      * The constructor accepts already configured HTTP clients.
      * Use the configure method to pass a configuration to the Client and create an HTTP Client.
-     *
-     * @param HttpClient          $httpClient
-     * @param null|Hydrator       $hydrator
-     * @param null|RequestBuilder $requestBuilder
      */
     public function __construct(
-        HttpClient $httpClient,
+        ClientConfigurator $clientConfigurator,
+        string $clientId,
+        string $clientSecret,
         Hydrator $hydrator = null,
         RequestBuilder $requestBuilder = null
     ) {
-        $this->httpClient = $httpClient;
+        $this->clientConfigurator = $clientConfigurator;
         $this->hydrator = $hydrator ?: new ModelHydrator();
         $this->requestBuilder = $requestBuilder ?: new RequestBuilder();
+        $this->authenticator = new Authenticator($this->requestBuilder, $this->clientConfigurator->createConfiguredClient(), $clientId, $clientSecret);
     }
 
-    /**
-     * @param HttpClientConfigurator $httpClientConfigurator
-     * @param null|Hydrator          $hydrator
-     * @param null|RequestBuilder    $requestBuilder
-     *
-     * @return SyliusClient
-     */
-    public static function configure(
-        HttpClientConfigurator $httpClientConfigurator,
-        Hydrator $hydrator = null,
-        RequestBuilder $requestBuilder = null
-    ): self {
-        $httpClient = $httpClientConfigurator->createConfiguredClient();
-
-        return new self($httpClient, $hydrator, $requestBuilder);
-    }
-
-    /**
-     * @param string $apiKey
-     *
-     * @return SyliusClient
-     */
-    public static function create(string $apiKey, string $endPoint): self
+    public static function create(string $endpoint, string $clientId, string $clientSecret): self
     {
-        $httpClientConfigurator = (new HttpClientConfigurator())
-            ->setApiKey($apiKey)
-            ->setEndpoint($endPoint);
+        $clientConfigurator = new ClientConfigurator();
+        $clientConfigurator->setEndpoint($endpoint);
 
-        return self::configure($httpClientConfigurator);
+        return new SyliusClient($clientConfigurator, $clientId, $clientSecret);
     }
 
     /**
-     * @return Api\Customers
+     * Autnenticate a user with the API. This will return an access token.
+     * Warning, this will remove the current access token.
      */
+    public function createNewAccessToken(string $username, string $password): string
+    {
+        $this->clientConfigurator->removePlugin(AuthenticationPlugin::class);
+
+        return $this->authenticator->createAccessToken($username, $password);
+    }
+
+    /**
+     * Autenticate the client with an access token. This should be the full access token object with
+     * refresh token and expirery timestamps.
+     *
+     * ```php
+     *   $accessToken = $client->createNewAccessToken('foo', 'bar');
+     *   $client->authenticate($accessToken);
+     *```
+     */
+    public function authenticate(string $accessToken): void
+    {
+        $this->clientConfigurator->removePlugin(AuthenticationPlugin::class);
+        $this->clientConfigurator->appendPlugin(new AuthenticationPlugin($this->authenticator, $accessToken));
+    }
+
+    /**
+     * The access token may have been refreshed during the requests. Use this function to
+     * get back the (possibly) refreshed access token.
+     */
+    public function getAccessToken(): string
+    {
+        return $this->authenticator->getAccessToken();
+    }
+
+
     public function customers(): Api\Customers
     {
-        return new Api\Customers($this->httpClient, $this->hydrator, $this->requestBuilder);
+        return new Api\Customers($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
     }
 
-    /**
-     * @return Api\Carts
-     */
     public function carts(): Api\Carts
     {
-        return new Api\Carts($this->httpClient, $this->hydrator, $this->requestBuilder);
+        return new Api\Carts($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
     }
 
-    /**
-     * @return Api\Products
-     */
     public function products(): Api\Products
     {
-        return new Api\Products($this->httpClient, $this->hydrator, $this->requestBuilder);
+        return new Api\Products($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
     }
 
     public function checkouts(): Api\Checkouts
     {
-        return new Api\Checkouts($this->httpClient, $this->hydrator, $this->requestBuilder);
+        return new Api\Checkouts($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
+    }
+
+    private function getHttpClient(): HttpClient
+    {
+        return $this->clientConfigurator->createConfiguredClient();
     }
 }
