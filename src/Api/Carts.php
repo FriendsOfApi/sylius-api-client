@@ -88,7 +88,6 @@ final class Carts extends HttpApi
             switch ($response->getStatusCode()) {
                 case 400:
                     throw new DomainExceptions\ValidationException();
-
                     break;
                 default:
                     $this->handleErrors($response);
@@ -140,7 +139,6 @@ final class Carts extends HttpApi
             switch ($response->getStatusCode()) {
                 case 400:
                     throw new DomainExceptions\ValidationException();
-
                     break;
                 default:
                     $this->handleErrors($response);

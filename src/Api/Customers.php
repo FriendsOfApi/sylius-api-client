@@ -65,7 +65,6 @@ final class Customers extends HttpApi
             switch ($response->getStatusCode()) {
                 case 400:
                     throw new DomainExceptions\ValidationException();
-
                     break;
                 default:
                     $this->handleErrors($response);
