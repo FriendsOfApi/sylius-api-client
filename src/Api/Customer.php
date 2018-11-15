@@ -23,7 +23,7 @@ final class Customer extends HttpApi
     /**
      * @throws Exception
      *
-     * @return Customer|ResponseInterface
+     * @return Model|ResponseInterface
      */
     public function create(string $email, string $firstName, string $lastName, string $gender, array $optionalParams = [])
     {
@@ -51,7 +51,6 @@ final class Customer extends HttpApi
         ], $optionalParams);
 
         $response = $this->httpPost('/api/v1/customers/', $params);
-
         if (!$this->hydrator) {
             return $response;
         }

@@ -32,8 +32,10 @@ final class Checkout extends HttpApi
 
     /**
      * @throws Exception
+     *
+     * @return ResponseInterface|void
      */
-    public function putAddress(int $cartId, array $shippingAddress, bool $differentBillingAddress = false, array $billingAddress = []): bool
+    public function updateAddress(int $cartId, array $shippingAddress, bool $differentBillingAddress = false, array $billingAddress = [])
     {
         if (empty($cartId)) {
             throw new InvalidArgumentException('Cart id cannot be empty');
@@ -56,6 +58,9 @@ final class Checkout extends HttpApi
         ];
 
         $response = $this->httpPut("/api/v1/checkouts/addressing/{$cartId}", $params);
+        if (!$this->hydrator) {
+            return $response;
+        }
 
         // Use any valid status code here
         if (204 !== $response->getStatusCode()) {
@@ -69,14 +74,14 @@ final class Checkout extends HttpApi
                     break;
             }
         }
-
-        return true;
     }
 
     /**
      * @throws Exception
+     *
+     * @return ResponseInterface|void
      */
-    public function putPaymentMethod(int $cartId, string $paymentMethodCode)
+    public function updatePaymentMethod(int $cartId, string $paymentMethodCode)
     {
         if (empty($cartId)) {
             throw new InvalidArgumentException('Cart id cannot be empty');
@@ -95,6 +100,9 @@ final class Checkout extends HttpApi
         ];
 
         $response = $this->httpPut("/api/v1/checkouts/select-payment/{$cartId}", $params);
+        if (!$this->hydrator) {
+            return $response;
+        }
 
         // Use any valid status code here
         if (204 !== $response->getStatusCode()) {
@@ -112,6 +120,8 @@ final class Checkout extends HttpApi
 
     /**
      * @throws Exception
+     *
+     * @return ResponseInterface|void
      */
     public function complete(int $cartId)
     {
@@ -120,6 +130,9 @@ final class Checkout extends HttpApi
         }
 
         $response = $this->httpPut("/api/v1/checkouts/complete/{$cartId}");
+        if (!$this->hydrator) {
+            return $response;
+        }
 
         // Use any valid status code here
         if (204 !== $response->getStatusCode()) {
@@ -147,6 +160,9 @@ final class Checkout extends HttpApi
         }
 
         $response = $this->httpGet("/api/v1/checkouts/select-shipping/{$cartId}");
+        if (!$this->hydrator) {
+            return $response;
+        }
 
         // Use any valid status code here
         if (200 !== $response->getStatusCode()) {
@@ -176,6 +192,9 @@ final class Checkout extends HttpApi
         }
 
         $response = $this->httpGet("/api/v1/checkouts/select-payment/{$cartId}");
+        if (!$this->hydrator) {
+            return $response;
+        }
 
         // Use any valid status code here
         if (200 !== $response->getStatusCode()) {
