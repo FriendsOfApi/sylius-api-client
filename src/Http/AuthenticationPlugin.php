@@ -15,6 +15,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class AuthenticationPlugin implements Plugin
 {
+    const RETRY_LIMIT = 2;
+
     /**
      * @var array
      */
@@ -25,6 +27,13 @@ class AuthenticationPlugin implements Plugin
      */
     private $authenticator;
 
+    /**
+     * Store the retry counter for each request.
+     *
+     * @var array
+     */
+    private $retryStorage = [];
+
     public function __construct(Authenticator $authenticator, string $accessToken)
     {
         $this->authenticator = $authenticator;
@@ -33,13 +42,24 @@ class AuthenticationPlugin implements Plugin
 
     public function handleRequest(RequestInterface $request, callable $next, callable $first)
     {
-        $header = \sprintf('Bearer %s', $this->accessToken['access_token']);
+        if (null === $this->accessToken) {
+            return $next($request);
+        }
+
+        $chainIdentifier = \spl_object_hash((object) $first);
+        $header = \sprintf('Bearer %s', $this->accessToken['access_token'] ?? '');
         $request = $request->withHeader('Authorization', $header);
 
         $promise = $next($request);
 
-        return $promise->then(function (ResponseInterface $response) use ($request, $next, $first) {
-            if (401 !== $response->getStatusCode()) {
+        return $promise->then(function (ResponseInterface $response) use ($request, $next, $first, $chainIdentifier) {
+            if (!\array_key_exists($chainIdentifier, $this->retryStorage)) {
+                $this->retryStorage[$chainIdentifier] = 0;
+            }
+
+            if (401 !== $response->getStatusCode() || $this->retryStorage[$chainIdentifier] >= self::RETRY_LIMIT) {
+                unset($this->retryStorage[$chainIdentifier]);
+
                 return $response;
             }
 
@@ -56,6 +76,7 @@ class AuthenticationPlugin implements Plugin
             $request = $request->withHeader('Authorization', $header);
 
             // Retry
+            ++$this->retryStorage[$chainIdentifier];
             $promise = $this->handleRequest($request, $next, $first);
 
             return $promise->wait();
