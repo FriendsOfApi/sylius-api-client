@@ -33,7 +33,11 @@ class AuthenticationPlugin implements Plugin
 
     public function handleRequest(RequestInterface $request, callable $next, callable $first)
     {
-        $header = \sprintf('Bearer %s', $this->accessToken['access_token']);
+        if (null === $this->accessToken) {
+            return $next($request);
+        }
+
+        $header = \sprintf('Bearer %s', $this->accessToken['access_token'] ?? '');
         $request = $request->withHeader('Authorization', $header);
 
         $promise = $next($request);

@@ -128,12 +128,12 @@ abstract class HttpApi
     protected function handleErrors(ResponseInterface $response)
     {
         switch ($response->getStatusCode()) {
+            case 401:
+                throw new DomainExceptions\UnauthorizedException();
             case 404:
                 throw new DomainExceptions\NotFoundException();
-                break;
             default:
                 throw new DomainExceptions\UnknownErrorException();
-                break;
         }
     }
 
