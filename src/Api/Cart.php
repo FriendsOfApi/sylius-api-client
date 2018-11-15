@@ -12,14 +12,14 @@ namespace FAPI\Sylius\Api;
 use FAPI\Sylius\Exception;
 use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
-use FAPI\Sylius\Model\Cart\Cart;
+use FAPI\Sylius\Model\Cart\Cart as Model;
 use FAPI\Sylius\Model\Cart\CartItem;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
  */
-final class Carts extends HttpApi
+final class Cart extends HttpApi
 {
     /**
      * @param int $id
@@ -45,7 +45,7 @@ final class Carts extends HttpApi
             $this->handleErrors($response);
         }
 
-        return $this->hydrator->hydrate($response, Cart::class);
+        return $this->hydrator->hydrate($response, Model::class);
     }
 
     /**
@@ -96,7 +96,7 @@ final class Carts extends HttpApi
             }
         }
 
-        return $this->hydrator->hydrate($response, Cart::class);
+        return $this->hydrator->hydrate($response, Model::class);
     }
 
     /**

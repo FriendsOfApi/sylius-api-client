@@ -118,24 +118,24 @@ final class SyliusClient
     }
 
 
-    public function customers(): Api\Customers
+    public function customer(): Api\Customer
     {
-        return new Api\Customers($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
+        return new Api\Customer($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
     }
 
-    public function carts(): Api\Carts
+    public function cart(): Api\Cart
     {
-        return new Api\Carts($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
+        return new Api\Cart($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
     }
 
-    public function products(): Api\Products
+    public function product(): Api\Product
     {
-        return new Api\Products($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
+        return new Api\Product($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
     }
 
-    public function checkouts(): Api\Checkouts
+    public function checkout(): Api\Checkout
     {
-        return new Api\Checkouts($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
+        return new Api\Checkout($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
     }
 
     private function getHttpClient(): HttpClient
