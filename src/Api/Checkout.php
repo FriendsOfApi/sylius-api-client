@@ -14,6 +14,7 @@ use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
 use FAPI\Sylius\Model\Checkout\PaymentCollection;
 use FAPI\Sylius\Model\Checkout\ShipmentCollection;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
@@ -73,10 +74,9 @@ final class Checkout extends HttpApi
     }
 
     /**
-     * @throws Exception\DomainException
-     * @throws Exception\Domain\ValidationException
+     * @throws Exception
      */
-    public function putPaymentMethod(int $cartId, string $paymentMethodCode): bool
+    public function putPaymentMethod(int $cartId, string $paymentMethodCode)
     {
         if (empty($cartId)) {
             throw new InvalidArgumentException('Cart id cannot be empty');
@@ -108,15 +108,10 @@ final class Checkout extends HttpApi
                     break;
             }
         }
-
-        return true;
     }
 
     /**
-     * @throws Exception\DomainException
-     * @throws Exception\Domain\ValidationException
-     *
-     * @return bool
+     * @throws Exception
      */
     public function complete(int $cartId)
     {
@@ -138,15 +133,14 @@ final class Checkout extends HttpApi
                     break;
             }
         }
-
-        return true;
     }
 
     /**
-     * @throws Exception\DomainException
-     * @throws Exception\Domain\ValidationException
+     * @throws Exception
+     *
+     * @return ResponseInterface|ShipmentCollection
      */
-    public function getShippingMethods(int $cartId): ShipmentCollection
+    public function getShippingMethods(int $cartId)
     {
         if (empty($cartId)) {
             throw new InvalidArgumentException('Cart id cannot be empty');
@@ -171,10 +165,11 @@ final class Checkout extends HttpApi
     }
 
     /**
-     * @throws Exception\DomainException
-     * @throws Exception\Domain\ValidationException
+     * @throws Exception
+     *
+     * @return PaymentCollection|ResponseInterface
      */
-    public function getPaymentMethods(int $cartId): PaymentCollection
+    public function getPaymentMethods(int $cartId)
     {
         if (empty($cartId)) {
             throw new InvalidArgumentException('Cart id cannot be empty');

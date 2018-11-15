@@ -24,7 +24,7 @@ final class Cart extends HttpApi
     /**
      * @throws Exception
      *
-     * @return Cart|ResponseInterface
+     * @return Model|ResponseInterface
      */
     public function get(int $id)
     {
@@ -49,7 +49,7 @@ final class Cart extends HttpApi
     /**
      * @throws Exception
      *
-     * @return Cart|ResponseInterface
+     * @return Model|ResponseInterface
      */
     public function create(string $customer, string $channel, string $localeCode)
     {
@@ -94,8 +94,7 @@ final class Cart extends HttpApi
     }
 
     /**
-     * @throws Exception\DomainException
-     * @throws Exception\Domain\ValidationException
+     * @throws Exception
      *
      * @return CartItem|ResponseInterface
      */
