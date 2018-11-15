@@ -33,7 +33,7 @@ final class Checkout extends HttpApi
     /**
      * @throws Exception
      *
-     * @return void|ResponseInterface
+     * @return ResponseInterface|void
      */
     public function putAddress(int $cartId, array $shippingAddress, bool $differentBillingAddress = false, array $billingAddress = [])
     {
@@ -78,7 +78,8 @@ final class Checkout extends HttpApi
 
     /**
      * @throws Exception
-     * @return void|ResponseInterface
+     *
+     * @return ResponseInterface|void
      */
     public function putPaymentMethod(int $cartId, string $paymentMethodCode)
     {
@@ -119,7 +120,8 @@ final class Checkout extends HttpApi
 
     /**
      * @throws Exception
-     * @return void|ResponseInterface
+     *
+     * @return ResponseInterface|void
      */
     public function complete(int $cartId)
     {
