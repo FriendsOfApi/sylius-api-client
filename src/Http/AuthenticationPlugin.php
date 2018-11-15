@@ -8,8 +8,6 @@ use Http\Client\Common\Plugin;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-
-
 /**
  * This will automatically refresh expired access token.
  *
@@ -48,14 +46,14 @@ class AuthenticationPlugin implements Plugin
             return $next($request);
         }
 
-        $chainIdentifier = spl_object_hash((object) $first);
+        $chainIdentifier = \spl_object_hash((object) $first);
         $header = \sprintf('Bearer %s', $this->accessToken['access_token'] ?? '');
         $request = $request->withHeader('Authorization', $header);
 
         $promise = $next($request);
 
         return $promise->then(function (ResponseInterface $response) use ($request, $next, $first, $chainIdentifier) {
-            if (!array_key_exists($chainIdentifier, $this->retryStorage)) {
+            if (!\array_key_exists($chainIdentifier, $this->retryStorage)) {
                 $this->retryStorage[$chainIdentifier] = 0;
             }
 
