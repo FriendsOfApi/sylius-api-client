@@ -33,7 +33,6 @@ final class Cart extends HttpApi
         }
 
         $response = $this->httpGet("/api/v1/carts/{$id}");
-
         if (!$this->hydrator) {
             return $response;
         }
@@ -72,7 +71,6 @@ final class Cart extends HttpApi
         ];
 
         $response = $this->httpPost('/api/v1/carts/', $params);
-
         if (!$this->hydrator) {
             return $response;
         }
@@ -118,7 +116,6 @@ final class Cart extends HttpApi
         ];
 
         $response = $this->httpPost("/api/v1/carts/{$cartId}/items/", $params);
-
         if (!$this->hydrator) {
             return $response;
         }

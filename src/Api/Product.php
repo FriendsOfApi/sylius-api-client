@@ -20,10 +20,13 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class Product extends HttpApi
 {
+    /**
+     * @throws Exception
+     * @reeturn Model|ResponseInterface
+     */
     public function get(string $productCode)
     {
         $response = $this->httpGet("/api/v1/products/{$productCode}");
-
         if (!$this->hydrator) {
             return $response;
         }
@@ -44,7 +47,6 @@ final class Product extends HttpApi
     public function getAll(array $params = [])
     {
         $response = $this->httpGet('/api/v1/products/', $params);
-
         if (!$this->hydrator) {
             return $response;
         }
@@ -65,7 +67,6 @@ final class Product extends HttpApi
     public function getVariants(string $productCode, array $params = [])
     {
         $response = $this->httpGet("/api/v1/products/{$productCode}/variants/", $params);
-
         if (!$this->hydrator) {
             return $response;
         }
