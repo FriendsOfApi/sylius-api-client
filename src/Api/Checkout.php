@@ -35,7 +35,7 @@ final class Checkout extends HttpApi
      *
      * @return ResponseInterface|void
      */
-    public function putAddress(int $cartId, array $shippingAddress, bool $differentBillingAddress = false, array $billingAddress = [])
+    public function updateAddress(int $cartId, array $shippingAddress, bool $differentBillingAddress = false, array $billingAddress = [])
     {
         if (empty($cartId)) {
             throw new InvalidArgumentException('Cart id cannot be empty');
@@ -81,7 +81,7 @@ final class Checkout extends HttpApi
      *
      * @return ResponseInterface|void
      */
-    public function putPaymentMethod(int $cartId, string $paymentMethodCode)
+    public function updatePaymentMethod(int $cartId, string $paymentMethodCode)
     {
         if (empty($cartId)) {
             throw new InvalidArgumentException('Cart id cannot be empty');
