@@ -18,7 +18,7 @@ use FAPI\Sylius\Model\Checkout\ShipmentCollection;
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
  */
-final class Checkouts extends HttpApi
+final class Checkout extends HttpApi
 {
     const SHIPPING_ADDRESS_FIELDS = [
         'firstName',

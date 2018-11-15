@@ -12,13 +12,13 @@ namespace FAPI\Sylius\Api;
 use FAPI\Sylius\Exception;
 use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
-use FAPI\Sylius\Model\Customer\Customer;
+use FAPI\Sylius\Model\Customer\Customer as Model;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
  */
-final class Customers extends HttpApi
+final class Customer extends HttpApi
 {
     /**
      * @param string $message
@@ -73,6 +73,6 @@ final class Customers extends HttpApi
             }
         }
 
-        return $this->hydrator->hydrate($response, Customer::class);
+        return $this->hydrator->hydrate($response, Model::class);
     }
 }

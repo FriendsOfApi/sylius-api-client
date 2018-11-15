@@ -12,13 +12,13 @@ namespace FAPI\Sylius\Api;
 use FAPI\Sylius\Exception;
 use FAPI\Sylius\Model\Product\ProductCollection;
 use FAPI\Sylius\Model\Product\VariantCollection;
-use FAPI\Sylius\Model\Product\Product;
+use FAPI\Sylius\Model\Product\Product as Model;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Kasim Taskin <taskinkasim@gmail.com>
  */
-final class Products extends HttpApi
+final class Product extends HttpApi
 {
     public function get(string $productCode)
     {
@@ -33,7 +33,7 @@ final class Products extends HttpApi
             $this->handleErrors($response);
         }
 
-        return $this->hydrator->hydrate($response, Product::class);
+        return $this->hydrator->hydrate($response, Model::class);
     }
 
     /**
