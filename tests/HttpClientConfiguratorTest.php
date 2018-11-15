@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace FAPI\Sylius\tests;
 
-use FAPI\Sylius\HttpClientConfigurator;
+use FAPI\Sylius\Http\ClientConfigurator;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Nyholm\NSA;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ final class HttpClientConfiguratorTest extends TestCase
 {
     public function testAppendPlugin()
     {
-        $hcc = new HttpClientConfigurator();
+        $hcc = new ClientConfigurator();
         $plugin0 = new HeaderAppendPlugin(['plugin0']);
 
         $hcc->appendPlugin($plugin0);
@@ -38,7 +38,7 @@ final class HttpClientConfiguratorTest extends TestCase
 
     public function testAppendPluginMultiple()
     {
-        $hcc = new HttpClientConfigurator();
+        $hcc = new ClientConfigurator();
         $plugin0 = new HeaderAppendPlugin(['plugin0']);
         $plugin1 = new HeaderAppendPlugin(['plugin1']);
 
@@ -51,7 +51,7 @@ final class HttpClientConfiguratorTest extends TestCase
 
     public function testPrependPlugin()
     {
-        $hcc = new HttpClientConfigurator();
+        $hcc = new ClientConfigurator();
         $plugin0 = new HeaderAppendPlugin(['plugin0']);
 
         $hcc->prependPlugin($plugin0);
@@ -68,7 +68,7 @@ final class HttpClientConfiguratorTest extends TestCase
 
     public function testPrependPluginMultiple()
     {
-        $hcc = new HttpClientConfigurator();
+        $hcc = new ClientConfigurator();
         $plugin0 = new HeaderAppendPlugin(['plugin0']);
         $plugin1 = new HeaderAppendPlugin(['plugin1']);
 
