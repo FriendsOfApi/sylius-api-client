@@ -43,12 +43,6 @@ final class ShipmentMethod implements CreatableFromArray
 
     /**
      * ShipmentMethod constructor.
-     *
-     * @param int    $id
-     * @param string $code
-     * @param string $name
-     * @param string $description
-     * @param int    $price
      */
     private function __construct(
         int $id,
@@ -65,8 +59,6 @@ final class ShipmentMethod implements CreatableFromArray
     }
 
     /**
-     * @param array $data
-     *
      * @return ShipmentMethod
      */
     public static function createFromArray(array $data): self
@@ -99,41 +91,26 @@ final class ShipmentMethod implements CreatableFromArray
         return new self($id, $code, $name, $description, $price);
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return int
-     */
     public function getPrice(): int
     {
         return $this->price;

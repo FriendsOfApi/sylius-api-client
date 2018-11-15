@@ -42,8 +42,6 @@ final class Image implements CreatableFromArray
     }
 
     /**
-     * @param array $data
-     *
      * @return Product
      */
     public static function createFromArray(array $data): self
@@ -66,25 +64,16 @@ final class Image implements CreatableFromArray
         return new self($id, $type, $path);
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return $this->path;

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FAPI\Sylius\Http;
 
 use Http\Client\Common\Plugin;
-use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -29,17 +28,18 @@ class AuthenticationPlugin implements Plugin
     public function __construct(Authenticator $authenticator, string $accessToken)
     {
         $this->authenticator = $authenticator;
-        $this->accessToken = json_decode($accessToken, true);
+        $this->accessToken = \json_decode($accessToken, true);
     }
 
     public function handleRequest(RequestInterface $request, callable $next, callable $first)
     {
-        $header = sprintf('Bearer %s', $this->accessToken['access_token']);
-        $request =  $request->withHeader('Authorization', $header);
+        $header = \sprintf('Bearer %s', $this->accessToken['access_token']);
+        $request = $request->withHeader('Authorization', $header);
 
         $promise = $next($request);
+
         return $promise->then(function (ResponseInterface $response) use ($request, $next, $first) {
-            if ($response->getStatusCode() !== 401) {
+            if (401 !== $response->getStatusCode()) {
                 return $response;
             }
 
@@ -49,11 +49,11 @@ class AuthenticationPlugin implements Plugin
             }
 
             // Save new token
-            $this->accessToken = json_decode($accessToken, true);
+            $this->accessToken = \json_decode($accessToken, true);
 
             // Add new token to request
-            $header = sprintf('Bearer %s', $this->accessToken['access_token']);
-            $request =  $request->withHeader('Authorization', $header);
+            $header = \sprintf('Bearer %s', $this->accessToken['access_token']);
+            $request = $request->withHeader('Authorization', $header);
 
             // Retry
             $promise = $this->handleRequest($request, $next, $first);
@@ -66,6 +66,6 @@ class AuthenticationPlugin implements Plugin
 
     public function getAccessToken(): string
     {
-        return json_encode($this->accessToken);
+        return \json_encode($this->accessToken);
     }
 }

@@ -14,7 +14,6 @@ use Http\Client\Common\PluginClient;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
-use Http\Message\Authentication;
 use Http\Message\UriFactory;
 
 /**
@@ -60,23 +59,17 @@ final class ClientConfigurator
 
     /**
      * True if we should create a new Plugin client at next request.
+     *
      * @var bool
      */
     private $configurationModified = true;
 
-    /**
-     * @param null|HttpClient $httpClient
-     * @param null|UriFactory $uriFactory
-     */
     public function __construct(HttpClient $httpClient = null, UriFactory $uriFactory = null)
     {
         $this->httpClient = $httpClient ?? HttpClientDiscovery::find();
         $this->uriFactory = $uriFactory ?? UriFactoryDiscovery::find();
     }
 
-    /**
-     * @return HttpClient
-     */
     public function createConfiguredClient(): HttpClient
     {
         if ($this->configurationModified) {
@@ -90,12 +83,11 @@ final class ClientConfigurator
                 ]
             );
 
-            $this->configuredClient = new PluginClient($this->httpClient, array_merge($plugins, $this->appendPlugins));
+            $this->configuredClient = new PluginClient($this->httpClient, \array_merge($plugins, $this->appendPlugins));
         }
 
         return $this->configuredClient;
     }
-
 
     public function setEndpoint(string $endpoint): void
     {
@@ -113,9 +105,9 @@ final class ClientConfigurator
     public function prependPlugin(Plugin ...$plugin): void
     {
         $this->configurationModified = true;
-        $plugin = array_reverse($plugin);
+        $plugin = \array_reverse($plugin);
         foreach ($plugin as $p) {
-            array_unshift($this->prependPlugins, $p);
+            \array_unshift($this->prependPlugins, $p);
         }
     }
 

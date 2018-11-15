@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace FAPI\Sylius\Api;
 
 use FAPI\Sylius\Exception;
+use FAPI\Sylius\Model\Product\Product as Model;
 use FAPI\Sylius\Model\Product\ProductCollection;
 use FAPI\Sylius\Model\Product\VariantCollection;
-use FAPI\Sylius\Model\Product\Product as Model;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -37,8 +37,6 @@ final class Product extends HttpApi
     }
 
     /**
-     * @param array $params
-     *
      * @throws Exception\DomainException
      *
      * @return ProductCollection|ResponseInterface
@@ -60,12 +58,9 @@ final class Product extends HttpApi
     }
 
     /**
-     * @param string $productCode
-     * @param array  $params
-     *
-     * @return VariantCollection|ResponseInterface
-     *
      * @throws Exception\DomainException
+     *
+     * @return ResponseInterface|VariantCollection
      */
     public function getVariants(string $productCode, array $params = [])
     {

@@ -22,11 +22,9 @@ use Psr\Http\Message\ResponseInterface;
 final class Cart extends HttpApi
 {
     /**
-     * @param int $id
-     *
      * @throws Exception
      *
-     * @return Cart|ResponseInterface
+     * @return Model|ResponseInterface
      */
     public function get(int $id)
     {
@@ -49,13 +47,9 @@ final class Cart extends HttpApi
     }
 
     /**
-     * @param string $message
-     * @param string $location
-     * @param array  $hashtags
-     *
      * @throws Exception
      *
-     * @return Cart|ResponseInterface
+     * @return Model|ResponseInterface
      */
     public function create(string $customer, string $channel, string $localeCode)
     {
@@ -100,12 +94,7 @@ final class Cart extends HttpApi
     }
 
     /**
-     * @param int    $cartId
-     * @param string $variant
-     * @param int    $quantity
-     *
-     * @throws Exception\DomainException
-     * @throws Exception\Domain\ValidationException
+     * @throws Exception
      *
      * @return CartItem|ResponseInterface
      */

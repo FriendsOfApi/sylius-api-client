@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace FAPI\Sylius;
 
-use FAPI\Sylius\Api\Products;
 use FAPI\Sylius\Http\AuthenticationPlugin;
 use FAPI\Sylius\Http\Authenticator;
 use FAPI\Sylius\Http\ClientConfigurator;
@@ -43,12 +42,12 @@ final class SyliusClient
     private $clientConfigurator;
 
     /**
-     * @var string|null
+     * @var null|string
      */
     private $clientId;
 
     /**
-     * @var string|null
+     * @var null|string
      */
     private $clientSecret;
 
@@ -79,7 +78,7 @@ final class SyliusClient
         $clientConfigurator = new ClientConfigurator();
         $clientConfigurator->setEndpoint($endpoint);
 
-        return new SyliusClient($clientConfigurator, $clientId, $clientSecret);
+        return new self($clientConfigurator, $clientId, $clientSecret);
     }
 
     /**
@@ -116,7 +115,6 @@ final class SyliusClient
     {
         return $this->authenticator->getAccessToken();
     }
-
 
     public function customer(): Api\Customer
     {
