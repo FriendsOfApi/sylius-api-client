@@ -56,8 +56,6 @@ final class Product implements CreatableFromArray
     }
 
     /**
-     * @param array $data
-     *
      * @return Product
      */
     public static function createFromArray(array $data): self
@@ -92,17 +90,11 @@ final class Product implements CreatableFromArray
         return new self($id, $code, $channels, $translations, $images);
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;

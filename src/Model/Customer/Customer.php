@@ -53,14 +53,6 @@ final class Customer implements CreatableFromArray
 
     /**
      * Customer constructor.
-     *
-     * @param int    $id
-     * @param User   $user
-     * @param string $email
-     * @param string $emailCanonical
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $gender
      */
     private function __construct(
         int $id,
@@ -83,8 +75,6 @@ final class Customer implements CreatableFromArray
     }
 
     /**
-     * @param array $data
-     *
      * @return Customer
      */
     public static function createFromArray(array $data): self
@@ -127,57 +117,36 @@ final class Customer implements CreatableFromArray
         return new self($id, $user, $email, $emailCanonical, $firstName, $lastName, $gender);
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return User
-     */
     public function getUser(): User
     {
         return $this->user;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return string
-     */
     public function getEmailCanonical(): string
     {
         return $this->emailCanonical;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    /**
-     * @return string
-     */
     public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    /**
-     * @return string
-     */
     public function getGender(): string
     {
         return $this->gender;

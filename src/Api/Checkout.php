@@ -30,11 +30,7 @@ final class Checkout extends HttpApi
     ];
 
     /**
-     * @param int $id
-     *
      * @throws Exception
-     *
-     * @return bool
      */
     public function putAddress(int $cartId, array $shippingAddress, bool $differentBillingAddress = false, array $billingAddress = []): bool
     {
@@ -77,13 +73,8 @@ final class Checkout extends HttpApi
     }
 
     /**
-     * @param int    $cartId
-     * @param string $paymentMethodCode
-     *
      * @throws Exception\DomainException
      * @throws Exception\Domain\ValidationException
-     *
-     * @return bool
      */
     public function putPaymentMethod(int $cartId, string $paymentMethodCode): bool
     {
@@ -122,8 +113,6 @@ final class Checkout extends HttpApi
     }
 
     /**
-     * @param int $cartId
-     *
      * @throws Exception\DomainException
      * @throws Exception\Domain\ValidationException
      *
@@ -154,12 +143,8 @@ final class Checkout extends HttpApi
     }
 
     /**
-     * @param int $cartId
-     *
      * @throws Exception\DomainException
      * @throws Exception\Domain\ValidationException
-     *
-     * @return ShipmentCollection
      */
     public function getShippingMethods(int $cartId): ShipmentCollection
     {
@@ -186,12 +171,8 @@ final class Checkout extends HttpApi
     }
 
     /**
-     * @param int $cartId
-     *
      * @throws Exception\DomainException
      * @throws Exception\Domain\ValidationException
-     *
-     * @return PaymentCollection
      */
     public function getPaymentMethods(int $cartId): PaymentCollection
     {

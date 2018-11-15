@@ -39,10 +39,7 @@ final class User implements CreatableFromArray
     /**
      * User constructor.
      *
-     * @param int      $id
-     * @param string   $username
      * @param string[] $roles
-     * @param bool     $enabled
      */
     private function __construct(int $id, string $username, $roles, bool $enabled)
     {
@@ -53,8 +50,6 @@ final class User implements CreatableFromArray
     }
 
     /**
-     * @param array $data
-     *
      * @return User
      */
     public static function createFromArray(array $data): self
@@ -83,17 +78,11 @@ final class User implements CreatableFromArray
         return new self($id, $username, $roles, $enabled);
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getUsername(): string
     {
         return $this->username;
@@ -107,9 +96,6 @@ final class User implements CreatableFromArray
         return $this->roles;
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled;

@@ -39,8 +39,6 @@ final class Variant implements CreatableFromArray
     /**
      * Variant constructor.
      *
-     * @param int        $id
-     * @param string     $code
      * @param string[][] $translations
      */
     private function __construct(
@@ -56,8 +54,6 @@ final class Variant implements CreatableFromArray
     }
 
     /**
-     * @param array $data
-     *
      * @return Variant
      */
     public static function createFromArray(array $data): self
@@ -85,17 +81,11 @@ final class Variant implements CreatableFromArray
         return new self($id, $code, $translations, $channelPricings);
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;

@@ -22,8 +22,6 @@ use Psr\Http\Message\ResponseInterface;
 final class Cart extends HttpApi
 {
     /**
-     * @param int $id
-     *
      * @throws Exception
      *
      * @return Cart|ResponseInterface
@@ -49,10 +47,6 @@ final class Cart extends HttpApi
     }
 
     /**
-     * @param string $message
-     * @param string $location
-     * @param array  $hashtags
-     *
      * @throws Exception
      *
      * @return Cart|ResponseInterface
@@ -100,10 +94,6 @@ final class Cart extends HttpApi
     }
 
     /**
-     * @param int    $cartId
-     * @param string $variant
-     * @param int    $quantity
-     *
      * @throws Exception\DomainException
      * @throws Exception\Domain\ValidationException
      *

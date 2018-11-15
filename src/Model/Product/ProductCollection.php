@@ -58,8 +58,6 @@ final class ProductCollection implements CreatableFromArray
     }
 
     /**
-     * @param array $data
-     *
      * @return ProductCollection
      */
     public static function createFromArray(array $data): self
@@ -95,33 +93,21 @@ final class ProductCollection implements CreatableFromArray
         return new self($page, $limit, $pages, $total, $items);
     }
 
-    /**
-     * @return int
-     */
     public function getPage(): int
     {
         return $this->page;
     }
 
-    /**
-     * @return int
-     */
     public function getLimit(): int
     {
         return $this->limit;
     }
 
-    /**
-     * @return int
-     */
     public function getPages(): int
     {
         return $this->pages;
     }
 
-    /**
-     * @return int
-     */
     public function getTotal(): int
     {
         return $this->total;

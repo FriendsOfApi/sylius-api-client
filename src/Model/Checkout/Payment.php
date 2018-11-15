@@ -32,8 +32,6 @@ final class Payment implements CreatableFromArray
     }
 
     /**
-     * @param array $data
-     *
      * @return Payment
      */
     public static function createFromArray(array $data): self

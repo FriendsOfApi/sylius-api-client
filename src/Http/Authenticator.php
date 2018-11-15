@@ -8,9 +8,10 @@ use FAPI\Sylius\RequestBuilder;
 use Http\Client\HttpClient;
 
 /**
- * Class that gets access tokens
+ * Class that gets access tokens.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
  * @internal
  */
 final class Authenticator
@@ -26,7 +27,7 @@ final class Authenticator
     private $httpClient;
 
     /**
-     * @var string|null
+     * @var null|string
      */
     private $accessToken;
 
@@ -48,21 +49,20 @@ final class Authenticator
         $this->clientSecret = $clientSecret;
     }
 
-
     public function createAccessToken(string $username, string $password): ?string
     {
         $request = $this->requestBuilder->create('POST', '/api/oauth/v2/token', [
             'Content-type' => 'application/x-www-form-urlencoded',
-        ], http_build_query([
-            'client_id'=>$this->clientId,
-            'client_secret'=>$this->clientSecret,
+        ], \http_build_query([
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret,
             'grant_type' => 'password',
             'username' => $username,
             'password' => $password,
         ]));
 
         $response = $this->httpClient->sendRequest($request);
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             return null;
         }
 
@@ -74,17 +74,17 @@ final class Authenticator
     public function refreshAccessToken(string $accessToken, string $refreshToken): string
     {
         $request = $this->requestBuilder->create('POST', '/api/oauth/v2/token', [
-            'Authorization' => sprintf('Bearer %s', $accessToken),
+            'Authorization' => \sprintf('Bearer %s', $accessToken),
             'Content-type' => 'application/x-www-form-urlencoded',
-        ], http_build_query([
+        ], \http_build_query([
             'refresh_token' => $refreshToken,
             'grant_type' => 'refresh_token',
-            'client_id'=>$this->clientId,
-            'client_secret'=>$this->clientSecret,
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret,
         ]));
 
         $response = $this->httpClient->sendRequest($request);
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             return null;
         }
 

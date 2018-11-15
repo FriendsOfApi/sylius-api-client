@@ -45,10 +45,6 @@ final class CartItem implements CreatableFromArray
     /**
      * CartItem constructor.
      *
-     * @param int          $id
-     * @param int          $quantity
-     * @param int          $unitPrice
-     * @param int          $total
      * @param null|Variant $variant
      */
     private function __construct(
@@ -68,8 +64,6 @@ final class CartItem implements CreatableFromArray
     }
 
     /**
-     * @param array $data
-     *
      * @return CartItem
      */
     public static function createFromArray(array $data): self
@@ -102,33 +96,21 @@ final class CartItem implements CreatableFromArray
         return new self($id, $quantity, $unitPrice, $total, $variant);
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
     public function getQuantity(): int
     {
         return $this->quantity;
     }
 
-    /**
-     * @return int
-     */
     public function getUnitPrice(): int
     {
         return $this->unitPrice;
     }
 
-    /**
-     * @return int
-     */
     public function getTotal(): int
     {
         return $this->total;

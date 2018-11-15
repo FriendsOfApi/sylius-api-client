@@ -21,10 +21,6 @@ use Psr\Http\Message\ResponseInterface;
 final class Customer extends HttpApi
 {
     /**
-     * @param string $message
-     * @param string $location
-     * @param array  $hashtags
-     *
      * @throws Exception
      *
      * @return Customer|ResponseInterface
@@ -47,7 +43,7 @@ final class Customer extends HttpApi
             throw new InvalidArgumentException('Gender cannot be empty');
         }
 
-        $params = array_merge([
+        $params = \array_merge([
             'firstName' => $firstName,
             'lastName' => $lastName,
             'email' => $email,

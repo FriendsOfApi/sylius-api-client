@@ -49,12 +49,6 @@ final class Cart implements CreatableFromArray
 
     /**
      * CartCreated constructor.
-     *
-     * @param int      $id
-     * @param Customer $customer
-     * @param string   $currencyCode
-     * @param string   $localeCode
-     * @param string   $checkoutState
      */
     private function __construct(
         int $id,
@@ -73,8 +67,6 @@ final class Cart implements CreatableFromArray
     }
 
     /**
-     * @param array $data
-     *
      * @return Cart
      */
     public static function createFromArray(array $data): self
@@ -114,41 +106,26 @@ final class Cart implements CreatableFromArray
         return new self($id, $customer, $currencyCode, $localeCode, $checkoutState, $items);
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return Customer
-     */
     public function getCustomer(): Customer
     {
         return $this->customer;
     }
 
-    /**
-     * @return string
-     */
     public function getCurrencyCode(): string
     {
         return $this->currencyCode;
     }
 
-    /**
-     * @return string
-     */
     public function getLocaleCode(): string
     {
         return $this->localeCode;
     }
 
-    /**
-     * @return string
-     */
     public function getCheckoutState(): string
     {
         return $this->checkoutState;
