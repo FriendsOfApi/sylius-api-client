@@ -111,7 +111,7 @@ final class SyliusClient
      * The access token may have been refreshed during the requests. Use this function to
      * get back the (possibly) refreshed access token.
      */
-    public function getAccessToken(): string
+    public function getAccessToken(): ?string
     {
         return $this->authenticator->getAccessToken();
     }

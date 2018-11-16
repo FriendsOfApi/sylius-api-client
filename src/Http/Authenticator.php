@@ -71,7 +71,7 @@ final class Authenticator
         return $this->accessToken;
     }
 
-    public function refreshAccessToken(string $accessToken, string $refreshToken): string
+    public function refreshAccessToken(string $accessToken, string $refreshToken): ?string
     {
         $request = $this->requestBuilder->create('POST', '/api/oauth/v2/token', [
             'Authorization' => \sprintf('Bearer %s', $accessToken),
