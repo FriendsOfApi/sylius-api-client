@@ -50,7 +50,7 @@ final class Cart extends HttpApi
      *
      * @return Model|ResponseInterface
      */
-    public function create(string $customer, string $channel, string $localeCode)
+    public function create(string $customer, string $channel, string $localeCode, array $params = [])
     {
         if (empty($customer)) {
             throw new InvalidArgumentException('Customers field cannot be empty');
@@ -64,11 +64,9 @@ final class Cart extends HttpApi
             throw new InvalidArgumentException('Locale code cannot be empty');
         }
 
-        $params = [
-            'customer' => $customer,
-            'channel' => $channel,
-            'localeCode' => $localeCode,
-        ];
+        $params['customer'] = $customer;
+        $params['channel'] = $channel;
+        $params['localeCode'] = $localeCode;
 
         $response = $this->httpPost('/api/v1/carts/', $params);
         if (!$this->hydrator) {
