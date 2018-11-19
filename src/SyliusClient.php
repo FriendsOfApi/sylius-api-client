@@ -85,7 +85,7 @@ final class SyliusClient
      * Autnenticate a user with the API. This will return an access token.
      * Warning, this will remove the current access token.
      */
-    public function createNewAccessToken(string $username, string $password): string
+    public function createNewAccessToken(string $username, string $password): ?string
     {
         $this->clientConfigurator->removePlugin(AuthenticationPlugin::class);
 
