@@ -40,12 +40,15 @@ final class Product extends HttpApi
     }
 
     /**
+     * {@link https://docs.sylius.com/en/1.3/api/products.html#creating-a-product}.
+     *
      * @throws Exception
      * @reeturn Model|ResponseInterface
      */
-    public function create(string $productCode)
+    public function create(string $productCode, array $params = [])
     {
-        $response = $this->httpPost('/api/v1/products/', ['code'=>$productCode]);
+        $params['code'] = $productCode;
+        $response = $this->httpPost('/api/v1/products/', $params);
         if (!$this->hydrator) {
             return $response;
         }
@@ -56,6 +59,27 @@ final class Product extends HttpApi
         }
 
         return $this->hydrator->hydrate($response, Model::class);
+    }
+
+    /**
+     * Update a product partially.
+     *
+     * {@link https://docs.sylius.com/en/1.3/api/products.html#id14}
+     *
+     * @throws Exception
+     * @reeturn void|ResponseInterface
+     */
+    public function update(string $productCode, array $params = [])
+    {
+        $response = $this->httpPatch('/api/v1/products/'.$productCode, $params);
+        if (!$this->hydrator) {
+            return $response;
+        }
+
+        // Use any valid status code here
+        if (201 !== $response->getStatusCode()) {
+            $this->handleErrors($response);
+        }
     }
 
     /**
