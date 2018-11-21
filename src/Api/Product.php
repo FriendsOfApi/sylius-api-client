@@ -40,6 +40,25 @@ final class Product extends HttpApi
     }
 
     /**
+     * @throws Exception
+     * @reeturn Model|ResponseInterface
+     */
+    public function create(string $productCode)
+    {
+        $response = $this->httpPost('/api/v1/products/', ['code'=>$productCode]);
+        if (!$this->hydrator) {
+            return $response;
+        }
+
+        // Use any valid status code here
+        if (201 !== $response->getStatusCode()) {
+            $this->handleErrors($response);
+        }
+
+        return $this->hydrator->hydrate($response, Model::class);
+    }
+
+    /**
      * @throws Exception\DomainException
      *
      * @return ProductCollection|ResponseInterface
