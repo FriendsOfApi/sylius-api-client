@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace FAPI\Sylius\Api;
 
+use FAPI\Sylius\Api\Product\Variant;
 use FAPI\Sylius\Exception;
 use FAPI\Sylius\Model\Product\Product as Model;
 use FAPI\Sylius\Model\Product\ProductCollection;
-use FAPI\Sylius\Model\Product\VariantCollection;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -20,9 +20,15 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class Product extends HttpApi
 {
+    public function variant(): Variant
+    {
+        return new Variant($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
+    }
+
     /**
      * @throws Exception
-     * @reeturn Model|ResponseInterface
+     *
+     * @return Model|ResponseInterface
      */
     public function get(string $productCode)
     {
@@ -37,6 +43,51 @@ final class Product extends HttpApi
         }
 
         return $this->hydrator->hydrate($response, Model::class);
+    }
+
+    /**
+     * {@link https://docs.sylius.com/en/1.3/api/products.html#creating-a-product}.
+     *
+     * @throws Exception
+     *
+     * @return Model|ResponseInterface
+     */
+    public function create(string $productCode, array $params = [])
+    {
+        $params['code'] = $productCode;
+        $response = $this->httpPost('/api/v1/products/', $params);
+        if (!$this->hydrator) {
+            return $response;
+        }
+
+        // Use any valid status code here
+        if (201 !== $response->getStatusCode()) {
+            $this->handleErrors($response);
+        }
+
+        return $this->hydrator->hydrate($response, Model::class);
+    }
+
+    /**
+     * Update a product partially.
+     *
+     * {@link https://docs.sylius.com/en/1.3/api/products.html#id14}
+     *
+     * @throws Exception
+     *
+     * @return void|ResponseInterface
+     */
+    public function update(string $productCode, array $params = [])
+    {
+        $response = $this->httpPatch('/api/v1/products/'.$productCode, $params);
+        if (!$this->hydrator) {
+            return $response;
+        }
+
+        // Use any valid status code here
+        if (204 !== $response->getStatusCode()) {
+            $this->handleErrors($response);
+        }
     }
 
     /**
@@ -57,25 +108,5 @@ final class Product extends HttpApi
         }
 
         return $this->hydrator->hydrate($response, ProductCollection::class);
-    }
-
-    /**
-     * @throws Exception\DomainException
-     *
-     * @return ResponseInterface|VariantCollection
-     */
-    public function getVariants(string $productCode, array $params = [])
-    {
-        $response = $this->httpGet(\sprintf('/api/v1/products/%s/variants/', $productCode), $params);
-        if (!$this->hydrator) {
-            return $response;
-        }
-
-        // Use any valid status code here
-        if (200 !== $response->getStatusCode()) {
-            $this->handleErrors($response);
-        }
-
-        return $this->hydrator->hydrate($response, VariantCollection::class);
     }
 }
