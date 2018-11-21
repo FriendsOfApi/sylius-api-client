@@ -51,7 +51,7 @@ final class Variant extends HttpApi
      */
     public function get(string $productCode, string $code)
     {
-        $response = $this->httpGet(sprintf('/api/v1/products/%s/variants/%s',  $productCode, $code));
+        $response = $this->httpGet(sprintf('/api/v1/products/%s/variants/%s', $productCode, $code));
         if (!$this->hydrator) {
             return $response;
         }
