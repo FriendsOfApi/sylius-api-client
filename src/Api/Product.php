@@ -26,7 +26,7 @@ final class Product extends HttpApi
      */
     public function get(string $productCode)
     {
-        $response = $this->httpGet("/api/v1/products/{$productCode}");
+        $response = $this->httpGet('/api/v1/products/'.$productCode);
         if (!$this->hydrator) {
             return $response;
         }
@@ -66,7 +66,7 @@ final class Product extends HttpApi
      */
     public function getVariants(string $productCode, array $params = [])
     {
-        $response = $this->httpGet("/api/v1/products/{$productCode}/variants/", $params);
+        $response = $this->httpGet(\sprintf('/api/v1/products/%s/variants/', $productCode), $params);
         if (!$this->hydrator) {
             return $response;
         }

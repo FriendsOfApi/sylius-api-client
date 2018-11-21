@@ -32,7 +32,7 @@ final class Cart extends HttpApi
             throw new InvalidArgumentException('Id cannot be empty');
         }
 
-        $response = $this->httpGet("/api/v1/carts/{$id}");
+        $response = $this->httpGet('/api/v1/carts/'.$id);
         if (!$this->hydrator) {
             return $response;
         }
@@ -113,7 +113,7 @@ final class Cart extends HttpApi
             'quantity' => $quantity,
         ];
 
-        $response = $this->httpPost("/api/v1/carts/{$cartId}/items/", $params);
+        $response = $this->httpPost(\sprintf('/api/v1/carts/%d/items/', $cartId), $params);
         if (!$this->hydrator) {
             return $response;
         }
