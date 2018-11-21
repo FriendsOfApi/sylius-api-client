@@ -97,7 +97,7 @@ final class Variant extends HttpApi
      */
     public function update(string $productCode, string $code, array $params = [])
     {
-        $response = $this->httpPut(sprintf('/api/v1/products/%s/variants/%s', $productCode, $code), $params);
+        $response = $this->httpPatch(sprintf('/api/v1/products/%s/variants/%s', $productCode, $code), $params);
         if (!$this->hydrator) {
             return $response;
         }

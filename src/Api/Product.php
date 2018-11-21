@@ -79,7 +79,7 @@ final class Product extends HttpApi
      */
     public function update(string $productCode, array $params = [])
     {
-        $response = $this->httpPut('/api/v1/products/'.$productCode, $params);
+        $response = $this->httpPatch('/api/v1/products/'.$productCode, $params);
         if (!$this->hydrator) {
             return $response;
         }
