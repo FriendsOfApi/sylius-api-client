@@ -28,7 +28,7 @@ final class Product extends HttpApi
 
     /**
      * @throws Exception
-     * @reeturn Model|ResponseInterface
+     * @return Model|ResponseInterface
      */
     public function get(string $productCode)
     {
@@ -49,7 +49,7 @@ final class Product extends HttpApi
      * {@link https://docs.sylius.com/en/1.3/api/products.html#creating-a-product}.
      *
      * @throws Exception
-     * @reeturn Model|ResponseInterface
+     * @return Model|ResponseInterface
      */
     public function create(string $productCode, array $params = [])
     {
@@ -73,7 +73,7 @@ final class Product extends HttpApi
      * {@link https://docs.sylius.com/en/1.3/api/products.html#id14}
      *
      * @throws Exception
-     * @reeturn void|ResponseInterface
+     * @return void|ResponseInterface
      */
     public function update(string $productCode, array $params = [])
     {
@@ -83,7 +83,7 @@ final class Product extends HttpApi
         }
 
         // Use any valid status code here
-        if (201 !== $response->getStatusCode()) {
+        if (204 !== $response->getStatusCode()) {
             $this->handleErrors($response);
         }
     }
