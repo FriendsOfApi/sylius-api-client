@@ -80,7 +80,6 @@ final class Variant extends HttpApi
 
         // Use any valid status code here
         if (201 !== $response->getStatusCode()) {
-            $body = $response->getBody()->__toString();
             $this->handleErrors($response);
         }
 
