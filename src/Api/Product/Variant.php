@@ -21,7 +21,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class Variant extends HttpApi
 {
-
     /**
      * @throws Exception\DomainException
      *
@@ -42,11 +41,11 @@ final class Variant extends HttpApi
         return $this->hydrator->hydrate($response, VariantCollection::class);
     }
 
-
     /**
-     * {@link https://docs.sylius.com/en/1.3/api/product_variants.html#getting-a-single-product-variant}
+     * {@link https://docs.sylius.com/en/1.3/api/product_variants.html#getting-a-single-product-variant}.
      *
      * @throws Exception
+     *
      * @return Model|ResponseInterface
      */
     public function get(string $productCode, string $code)
@@ -65,9 +64,10 @@ final class Variant extends HttpApi
     }
 
     /**
-     * {@link https://docs.sylius.com/en/1.3/api/product_variants.html#creating-a-product-variant}
+     * {@link https://docs.sylius.com/en/1.3/api/product_variants.html#creating-a-product-variant}.
      *
      * @throws Exception
+     *
      * @return Model|ResponseInterface
      */
     public function create(string $productCode, string $code, array $params = [])
@@ -92,6 +92,7 @@ final class Variant extends HttpApi
      * {@link https://docs.sylius.com/en/1.3/api/product_variants.html#updating-product-variant}
      *
      * @throws Exception
+     *
      * @return void|ResponseInterface
      */
     public function update(string $productCode, string $code, array $params = [])
@@ -108,9 +109,10 @@ final class Variant extends HttpApi
     }
 
     /**
-     * {@link https://docs.sylius.com/en/1.3/api/product_variants.html#deleting-a-product-variant}
+     * {@link https://docs.sylius.com/en/1.3/api/product_variants.html#deleting-a-product-variant}.
      *
      * @throws Exception
+     *
      * @return void|ResponseInterface
      */
     public function delete(string $productCode, string $code)

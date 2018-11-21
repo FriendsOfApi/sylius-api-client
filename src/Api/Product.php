@@ -13,7 +13,6 @@ use FAPI\Sylius\Api\Product\Variant;
 use FAPI\Sylius\Exception;
 use FAPI\Sylius\Model\Product\Product as Model;
 use FAPI\Sylius\Model\Product\ProductCollection;
-use FAPI\Sylius\Model\Product\VariantCollection;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -28,6 +27,7 @@ final class Product extends HttpApi
 
     /**
      * @throws Exception
+     *
      * @return Model|ResponseInterface
      */
     public function get(string $productCode)
@@ -49,6 +49,7 @@ final class Product extends HttpApi
      * {@link https://docs.sylius.com/en/1.3/api/products.html#creating-a-product}.
      *
      * @throws Exception
+     *
      * @return Model|ResponseInterface
      */
     public function create(string $productCode, array $params = [])
@@ -73,6 +74,7 @@ final class Product extends HttpApi
      * {@link https://docs.sylius.com/en/1.3/api/products.html#id14}
      *
      * @throws Exception
+     *
      * @return void|ResponseInterface
      */
     public function update(string $productCode, array $params = [])
