@@ -22,7 +22,7 @@ final class Product extends HttpApi
 {
     public function variant(): Variant
     {
-        return new Variant($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
+        return new Variant($this->httpClient, $this->hydrator, $this->requestBuilder);
     }
 
     /**
