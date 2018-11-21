@@ -47,7 +47,7 @@ final class Checkout extends HttpApi
 
         foreach (self::SHIPPING_ADDRESS_FIELDS as $field) {
             if (empty($shippingAddress[$field])) {
-                throw new InvalidArgumentException("Field {$field} missing in shipping address");
+                throw new InvalidArgumentException(\sprintf('Field "%s" missing in shipping address', $field));
             }
         }
 
@@ -57,7 +57,7 @@ final class Checkout extends HttpApi
             'billingAddress' => $billingAddress,
         ];
 
-        $response = $this->httpPut("/api/v1/checkouts/addressing/{$cartId}", $params);
+        $response = $this->httpPut('/api/v1/checkouts/addressing/'.$cartId, $params);
         if (!$this->hydrator) {
             return $response;
         }
@@ -99,7 +99,7 @@ final class Checkout extends HttpApi
             ],
         ];
 
-        $response = $this->httpPut("/api/v1/checkouts/select-payment/{$cartId}", $params);
+        $response = $this->httpPut('/api/v1/checkouts/select-payment/'.$cartId, $params);
         if (!$this->hydrator) {
             return $response;
         }
@@ -129,7 +129,7 @@ final class Checkout extends HttpApi
             throw new InvalidArgumentException('Cart id cannot be empty');
         }
 
-        $response = $this->httpPut("/api/v1/checkouts/complete/{$cartId}");
+        $response = $this->httpPut('/api/v1/checkouts/complete/'.$cartId);
         if (!$this->hydrator) {
             return $response;
         }
@@ -159,7 +159,7 @@ final class Checkout extends HttpApi
             throw new InvalidArgumentException('Cart id cannot be empty');
         }
 
-        $response = $this->httpGet("/api/v1/checkouts/select-shipping/{$cartId}");
+        $response = $this->httpGet('/api/v1/checkouts/select-shipping/'.$cartId);
         if (!$this->hydrator) {
             return $response;
         }
@@ -191,7 +191,7 @@ final class Checkout extends HttpApi
             throw new InvalidArgumentException('Cart id cannot be empty');
         }
 
-        $response = $this->httpGet("/api/v1/checkouts/select-payment/{$cartId}");
+        $response = $this->httpGet('/api/v1/checkouts/select-payment/'.$cartId);
         if (!$this->hydrator) {
             return $response;
         }
