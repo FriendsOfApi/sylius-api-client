@@ -28,7 +28,7 @@ final class Variant extends HttpApi
      */
     public function getAll(string $productCode, array $params = [])
     {
-        $response = $this->httpGet("/api/v1/products/{$productCode}/variants/", $params);
+        $response = $this->httpGet(\sprintf('/api/v1/products/%s/variants/', $productCode), $params);
         if (!$this->hydrator) {
             return $response;
         }
