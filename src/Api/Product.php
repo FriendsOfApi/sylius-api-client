@@ -75,7 +75,7 @@ final class Product extends HttpApi
      *
      * @throws Exception
      *
-     * @return void|ResponseInterface
+     * @return ResponseInterface|void
      */
     public function update(string $productCode, array $params = [])
     {

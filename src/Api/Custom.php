@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace FAPI\Sylius\Api;
 
-use Psr\Http\Message\ResponseInterface;
-
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
@@ -46,7 +44,7 @@ final class Custom extends HttpApi
         return $this->hydrator->hydrate($response, $class);
     }
 
-    public function put(string $path,array $params = [], array $requestHeaders = [], string $class = '')
+    public function put(string $path, array $params = [], array $requestHeaders = [], string $class = '')
     {
         $response = parent::httpPut($path, $params, $requestHeaders);
         if (!$this->hydrator) {
