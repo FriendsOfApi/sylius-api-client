@@ -116,6 +116,11 @@ final class SyliusClient
         return $this->authenticator->getAccessToken();
     }
 
+    public function custom(Hydrator $hydrator = null): Api\Custom
+    {
+        return new Api\Custom($this->getHttpClient(), $hydrator ?? $this->hydrator, $this->requestBuilder);
+    }
+
     public function customer(): Api\Customer
     {
         return new Api\Customer($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
