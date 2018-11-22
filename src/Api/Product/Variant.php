@@ -50,7 +50,7 @@ final class Variant extends HttpApi
      */
     public function get(string $productCode, string $code)
     {
-        $response = $this->httpGet(sprintf('/api/v1/products/%s/variants/%s', $productCode, $code));
+        $response = $this->httpGet(\sprintf('/api/v1/products/%s/variants/%s', $productCode, $code));
         if (!$this->hydrator) {
             return $response;
         }
@@ -73,7 +73,7 @@ final class Variant extends HttpApi
     public function create(string $productCode, string $code, array $params = [])
     {
         $params['code'] = $code;
-        $response = $this->httpPost(sprintf('/api/v1/products/%s/variants/', $productCode), $params);
+        $response = $this->httpPost(\sprintf('/api/v1/products/%s/variants/', $productCode), $params);
         if (!$this->hydrator) {
             return $response;
         }
@@ -93,11 +93,11 @@ final class Variant extends HttpApi
      *
      * @throws Exception
      *
-     * @return void|ResponseInterface
+     * @return ResponseInterface|void
      */
     public function update(string $productCode, string $code, array $params = [])
     {
-        $response = $this->httpPatch(sprintf('/api/v1/products/%s/variants/%s', $productCode, $code), $params);
+        $response = $this->httpPatch(\sprintf('/api/v1/products/%s/variants/%s', $productCode, $code), $params);
         if (!$this->hydrator) {
             return $response;
         }
@@ -113,11 +113,11 @@ final class Variant extends HttpApi
      *
      * @throws Exception
      *
-     * @return void|ResponseInterface
+     * @return ResponseInterface|void
      */
     public function delete(string $productCode, string $code)
     {
-        $response = $this->httpDelete(sprintf('/api/v1/products/%s/variants/%s', $productCode, $code));
+        $response = $this->httpDelete(\sprintf('/api/v1/products/%s/variants/%s', $productCode, $code));
         if (!$this->hydrator) {
             return $response;
         }

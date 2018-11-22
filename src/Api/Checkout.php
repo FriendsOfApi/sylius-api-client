@@ -81,23 +81,11 @@ final class Checkout extends HttpApi
      *
      * @return ResponseInterface|void
      */
-    public function updatePaymentMethod(int $cartId, string $paymentMethodCode)
+    public function updatePaymentMethod(int $cartId, array $params = [])
     {
         if (empty($cartId)) {
             throw new InvalidArgumentException('Cart id cannot be empty');
         }
-
-        if (empty($paymentMethodCode)) {
-            throw new InvalidArgumentException('Payment method code cannot be empty');
-        }
-
-        $params = [
-            'payments' => [
-                [
-                    'method' => $paymentMethodCode,
-                ],
-            ],
-        ];
 
         $response = $this->httpPut('/api/v1/checkouts/select-payment/'.$cartId, $params);
         if (!$this->hydrator) {
