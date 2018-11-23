@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace FAPI\Sylius\Api;
 
 use FAPI\Sylius\Exception;
-use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
 use FAPI\Sylius\Model\Cart\Cart as Model;
 use FAPI\Sylius\Model\Cart\CartItem;
@@ -111,7 +110,7 @@ final class Cart extends HttpApi
         }
 
         // Use any valid status code here
-        if (201!== $response->getStatusCode()) {
+        if (201 !== $response->getStatusCode()) {
             $this->handleErrors($response);
         }
 

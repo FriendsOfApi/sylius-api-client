@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace FAPI\Sylius\Api;
 
 use FAPI\Sylius\Exception;
-use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
 use FAPI\Sylius\Model\Customer\Customer as Model;
 use Psr\Http\Message\ResponseInterface;
