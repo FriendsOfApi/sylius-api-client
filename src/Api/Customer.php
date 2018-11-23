@@ -57,15 +57,7 @@ final class Customer extends HttpApi
 
         // Use any valid status code here
         if (201 !== $response->getStatusCode()) {
-            switch ($response->getStatusCode()) {
-                case 400:
-                    throw new DomainExceptions\ValidationException();
-                    break;
-                default:
-                    $this->handleErrors($response);
-
-                    break;
-            }
+            $this->handleErrors($response);
         }
 
         return $this->hydrator->hydrate($response, Model::class);
