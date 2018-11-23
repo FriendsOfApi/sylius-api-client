@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace FAPI\Sylius\Api;
 
 use FAPI\Sylius\Exception;
-use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
 use FAPI\Sylius\Model\Checkout\PaymentCollection;
 use FAPI\Sylius\Model\Checkout\ShipmentCollection;
@@ -64,15 +63,7 @@ final class Checkout extends HttpApi
 
         // Use any valid status code here
         if (204 !== $response->getStatusCode()) {
-            switch ($response->getStatusCode()) {
-                case 400:
-                    throw new DomainExceptions\ValidationException();
-                    break;
-                default:
-                    $this->handleErrors($response);
-
-                    break;
-            }
+            $this->handleErrors($response);
         }
     }
 
@@ -94,15 +85,7 @@ final class Checkout extends HttpApi
 
         // Use any valid status code here
         if (204 !== $response->getStatusCode()) {
-            switch ($response->getStatusCode()) {
-                case 400:
-                    throw new DomainExceptions\ValidationException();
-                    break;
-                default:
-                    $this->handleErrors($response);
-
-                    break;
-            }
+            $this->handleErrors($response);
         }
     }
 
@@ -124,15 +107,7 @@ final class Checkout extends HttpApi
 
         // Use any valid status code here
         if (204 !== $response->getStatusCode()) {
-            switch ($response->getStatusCode()) {
-                case 400:
-                    throw new DomainExceptions\ValidationException();
-                    break;
-                default:
-                    $this->handleErrors($response);
-
-                    break;
-            }
+            $this->handleErrors($response);
         }
     }
 
@@ -154,15 +129,7 @@ final class Checkout extends HttpApi
 
         // Use any valid status code here
         if (200 !== $response->getStatusCode()) {
-            switch ($response->getStatusCode()) {
-                case 400:
-                    throw new DomainExceptions\ValidationException();
-                    break;
-                default:
-                    $this->handleErrors($response);
-
-                    break;
-            }
+            $this->handleErrors($response);
         }
 
         return $this->hydrator->hydrate($response, ShipmentCollection::class);
@@ -186,15 +153,7 @@ final class Checkout extends HttpApi
 
         // Use any valid status code here
         if (200 !== $response->getStatusCode()) {
-            switch ($response->getStatusCode()) {
-                case 400:
-                    throw new DomainExceptions\ValidationException();
-                    break;
-                default:
-                    $this->handleErrors($response);
-
-                    break;
-            }
+            $this->handleErrors($response);
         }
 
         return $this->hydrator->hydrate($response, PaymentCollection::class);

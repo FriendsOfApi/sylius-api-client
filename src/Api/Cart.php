@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace FAPI\Sylius\Api;
 
 use FAPI\Sylius\Exception;
-use FAPI\Sylius\Exception\Domain as DomainExceptions;
 use FAPI\Sylius\Exception\InvalidArgumentException;
 use FAPI\Sylius\Model\Cart\Cart as Model;
 use FAPI\Sylius\Model\Cart\CartItem;
@@ -75,15 +74,7 @@ final class Cart extends HttpApi
 
         // Use any valid status code here
         if (201 !== $response->getStatusCode()) {
-            switch ($response->getStatusCode()) {
-                case 400:
-                    throw new DomainExceptions\ValidationException();
-                    break;
-                default:
-                    $this->handleErrors($response);
-
-                    break;
-            }
+            $this->handleErrors($response);
         }
 
         return $this->hydrator->hydrate($response, Model::class);
@@ -120,15 +111,7 @@ final class Cart extends HttpApi
 
         // Use any valid status code here
         if (201 !== $response->getStatusCode()) {
-            switch ($response->getStatusCode()) {
-                case 400:
-                    throw new DomainExceptions\ValidationException();
-                    break;
-                default:
-                    $this->handleErrors($response);
-
-                    break;
-            }
+            $this->handleErrors($response);
         }
 
         return $this->hydrator->hydrate($response, CartItem::class);

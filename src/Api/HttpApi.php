@@ -141,7 +141,10 @@ abstract class HttpApi
      */
     protected function handleErrors(ResponseInterface $response)
     {
+        $body = $response->getBody()->__toString();
         switch ($response->getStatusCode()) {
+            case 400:
+                throw new DomainExceptions\ValidationException($body);
             case 401:
                 throw new DomainExceptions\UnauthorizedException();
             case 404:
