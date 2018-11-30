@@ -46,7 +46,8 @@ final class Product implements CreatableFromArray
      */
     private $images = [];
 
-    private function __construct() {
+    private function __construct()
+    {
     }
 
     /**
