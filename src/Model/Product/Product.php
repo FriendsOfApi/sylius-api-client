@@ -19,40 +19,34 @@ final class Product implements CreatableFromArray
     /**
      * @var int
      */
-    private $id;
+    private $id = 0;
 
     /**
-     * @var string
+     * @var null|string
      */
-    private $code;
+    private $name;
+
+    /**
+     * @var null|string
+     */
+    private $code = '';
 
     /**
      * @var string[]
      */
-    private $channels;
+    private $channels = [];
 
     /**
      * @var string[][]
      */
-    private $translations;
+    private $translations = [];
 
     /**
      * @var Image[]
      */
-    private $images;
+    private $images = [];
 
-    private function __construct(
-        int $id,
-        string $code,
-        array $channels,
-        array $translations,
-        array $images
-    ) {
-        $this->id = $id;
-        $this->code = $code;
-        $this->channels = $channels;
-        $this->translations = $translations;
-        $this->images = $images;
+    private function __construct() {
     }
 
     /**
@@ -60,34 +54,34 @@ final class Product implements CreatableFromArray
      */
     public static function createFromArray(array $data): self
     {
-        $id = -1;
+        $model = new self();
         if (isset($data['id'])) {
-            $id = $data['id'];
+            $model->id = $data['id'];
         }
 
-        $code = '';
         if (isset($data['code'])) {
-            $code = $data['code'];
+            $model->code = $data['code'];
+        }
+        if (isset($data['name'])) {
+            $model->name = $data['name'];
         }
 
-        $channels = [];
         if (isset($data['channels'])) {
-            $channels = $data['channels'];
+            $model->channels = $data['channels'];
         }
 
         $translations = [];
         if (isset($data['translations'])) {
-            $translations = $data['translations'];
+            $model->translations = $data['translations'];
         }
 
-        $images = [];
         if (isset($data['images'])) {
             foreach ($data['images'] as $image) {
-                $images[] = Image::createFromArray($image);
+                $model->images[] = Image::createFromArray($image);
             }
         }
 
-        return new self($id, $code, $channels, $translations, $images);
+        return $model;
     }
 
     public function getId(): int
@@ -122,5 +116,10 @@ final class Product implements CreatableFromArray
     public function getImages(): array
     {
         return $this->images;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 }
