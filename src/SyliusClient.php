@@ -19,7 +19,7 @@ use Http\Client\HttpClient;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class SyliusClient
+class SyliusClient
 {
     /**
      * @var HttpClient
