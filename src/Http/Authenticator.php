@@ -27,7 +27,7 @@ final class Authenticator
     private $httpClient;
 
     /**
-     * @var null|string
+     * @var string|null
      */
     private $accessToken;
 

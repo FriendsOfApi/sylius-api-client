@@ -45,7 +45,7 @@ final class CartItem implements CreatableFromArray
     /**
      * CartItem constructor.
      *
-     * @param null|Variant $variant
+     * @param Variant|null $variant
      */
     private function __construct(
         int $id,
