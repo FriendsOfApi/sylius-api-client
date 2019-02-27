@@ -44,23 +44,20 @@ final class Customer extends HttpApi
     /**
      * @throws Exception
      *
-     * @return Model|ResponseInterface
+     * @return ResponseInterface
      */
     public function update(int $id, string $email, string $firstName, string $lastName, string $gender, array $optionalParams = [])
     {
         $params = $this->validateAndGetParams($email, $firstName, $lastName, $gender, $optionalParams);
 
         $response = $this->httpPut('/api/v1/customers/'.$id, $params);
-        if (!$this->hydrator) {
-            return $response;
-        }
 
         // Use any valid status code here
         if (204 !== $response->getStatusCode()) {
             $this->handleErrors($response);
         }
 
-        return $this->hydrator->hydrate($response, Model::class);
+        return $response;
     }
 
     /**
