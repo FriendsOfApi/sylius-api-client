@@ -115,4 +115,9 @@ final class CartItem implements CreatableFromArray
     {
         return $this->total;
     }
+
+    public function getVariant(): ?Variant
+    {
+        return $this->variant;
+    }
 }
