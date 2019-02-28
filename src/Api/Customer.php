@@ -26,6 +26,51 @@ final class Customer extends HttpApi
      */
     public function create(string $email, string $firstName, string $lastName, string $gender, array $optionalParams = [])
     {
+        $params = $this->validateAndGetParams($email, $firstName, $lastName, $gender, $optionalParams);
+
+        $response = $this->httpPost('/api/v1/customers/', $params);
+        if (!$this->hydrator) {
+            return $response;
+        }
+
+        // Use any valid status code here
+        if (201 !== $response->getStatusCode()) {
+            $this->handleErrors($response);
+        }
+
+        return $this->hydrator->hydrate($response, Model::class);
+    }
+
+    /**
+     * @throws Exception
+     *
+     * @return ResponseInterface
+     */
+    public function update(int $id, string $email, string $firstName, string $lastName, string $gender, array $optionalParams = [])
+    {
+        $params = $this->validateAndGetParams($email, $firstName, $lastName, $gender, $optionalParams);
+
+        $response = $this->httpPut('/api/v1/customers/'.$id, $params);
+
+        // Use any valid status code here
+        if (204 !== $response->getStatusCode()) {
+            $this->handleErrors($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param string $email
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $gender
+     * @param array  $optionalParams
+     *
+     * @return array
+     */
+    private function validateAndGetParams(string $email, string $firstName, string $lastName, string $gender, array $optionalParams): array
+    {
         if (empty($email)) {
             throw new InvalidArgumentException('Email cannot be empty');
         }
@@ -49,16 +94,6 @@ final class Customer extends HttpApi
             'gender' => $gender,
         ], $optionalParams);
 
-        $response = $this->httpPost('/api/v1/customers/', $params);
-        if (!$this->hydrator) {
-            return $response;
-        }
-
-        // Use any valid status code here
-        if (201 !== $response->getStatusCode()) {
-            $this->handleErrors($response);
-        }
-
-        return $this->hydrator->hydrate($response, Model::class);
+        return $params;
     }
 }

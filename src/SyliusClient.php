@@ -42,12 +42,12 @@ class SyliusClient
     private $clientConfigurator;
 
     /**
-     * @var null|string
+     * @var string|null
      */
     private $clientId;
 
     /**
-     * @var null|string
+     * @var string|null
      */
     private $clientSecret;
 

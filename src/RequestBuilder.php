@@ -46,7 +46,7 @@ final class RequestBuilder
     /**
      * Creates a new PSR-7 request.
      *
-     * @param null|array|string $body Request body. If body is an array we will send a as multipart stream request.
+     * @param array|string|null $body Request body. If body is an array we will send a as multipart stream request.
      *                                If array, each array *item* MUST look like:
      *                                array (
      *                                'content' => string|resource|StreamInterface,

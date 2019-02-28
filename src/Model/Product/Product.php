@@ -22,12 +22,12 @@ final class Product implements CreatableFromArray
     private $id = 0;
 
     /**
-     * @var null|string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var null|string
+     * @var string|null
      */
     private $code = '';
 
