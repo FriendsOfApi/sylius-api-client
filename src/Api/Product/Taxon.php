@@ -98,6 +98,7 @@ final class Taxon extends HttpApi
      */
     public function update(string $code, array $params = [])
     {
+        $params = $this->validateAndGetParams($code, $params);
         $response = $this->httpPatch(\sprintf('/api/v1/taxons/%s', $code), $params);
         if (!$this->hydrator) {
             return $response;
