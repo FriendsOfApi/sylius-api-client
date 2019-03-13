@@ -136,6 +136,11 @@ class SyliusClient
         return new Api\Product($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
     }
 
+    public function taxon(): Api\Product\Taxon
+    {
+        return new Api\Product\Taxon($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
+    }
+
     public function checkout(): Api\Checkout
     {
         return new Api\Checkout($this->getHttpClient(), $this->hydrator, $this->requestBuilder);
