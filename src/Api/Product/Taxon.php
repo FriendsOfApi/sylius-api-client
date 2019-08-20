@@ -29,7 +29,7 @@ final class Taxon extends HttpApi
      */
     public function getAll(array $params = [])
     {
-        $response = $this->httpGet('/api/v1/taxons', $params);
+        $response = $this->httpGet('/api/v1/taxons/', $params);
         if (!$this->hydrator) {
             return $response;
         }
@@ -133,7 +133,7 @@ final class Taxon extends HttpApi
     private function validateAndGetParams(string $code, array $optionalParams): array
     {
         if (empty($code)) {
-            throw new InvalidArgumentException('Code cannot be empty');
+            throw new Exception\InvalidArgumentException('Code cannot be empty');
         }
 
         $params = \array_merge([
