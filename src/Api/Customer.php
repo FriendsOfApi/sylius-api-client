@@ -60,15 +60,6 @@ final class Customer extends HttpApi
         return $response;
     }
 
-    /**
-     * @param string $email
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $gender
-     * @param array  $optionalParams
-     *
-     * @return array
-     */
     private function validateAndGetParams(string $email, string $firstName, string $lastName, string $gender, array $optionalParams): array
     {
         if (empty($email)) {
